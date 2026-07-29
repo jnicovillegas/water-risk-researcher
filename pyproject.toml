@@ -1,0 +1,28 @@
+[project]
+name = "water-risk-researcher"
+version = "0.1.0"
+description = "Automated, source-verified water-risk research tool. Separates AI generation from deterministic verification so every data point is provably backed by its source."
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "anthropic>=0.40",
+    "httpx>=0.27",
+    "beautifulsoup4>=4.12",
+    "lxml>=5.0",
+    "rapidfuzz>=3.9",
+    "pydantic>=2.7",
+    "python-dotenv>=1.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+
+[project.scripts]
+waterrisk = "waterrisk.cli:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
