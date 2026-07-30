@@ -51,9 +51,12 @@ authority. Every failure is surfaced — `❌ FAILED VALIDATION` or a `NO` — n
 > 📄 Prefer a step-by-step printable guide? See **[`user-guide.pdf`](user-guide.pdf)** —
 > install, configure, run, and read the results, for any user.
 
-Requires Python 3.9+ and an API key for the LLM (Claude Sonnet 5, via the
-[Anthropic API](https://console.anthropic.com) — a developer API key, separate from
-any chat subscription; a run costs a few cents).
+Requires Python 3.9+ and an **Anthropic API key** (from
+[console.anthropic.com](https://console.anthropic.com) — a developer key, separate
+from any chat subscription; a run costs a few cents). **The key must be Anthropic's**
+— the tool uses Anthropic's server-side web search, so a key from another provider
+won't work. Any Claude model works via `--model`; the default is **Claude Sonnet 5**,
+which we recommend: it's economical and more than enough for this use case.
 
 ```bash
 # 1. install
