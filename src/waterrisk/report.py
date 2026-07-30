@@ -151,6 +151,7 @@ _DARK = (45, 55, 60)
 _GREEN = (26, 138, 74)
 _AMBER = (176, 116, 25)
 _RED = (192, 57, 43)
+_CHIP = (222, 230, 233)   # neutral badge background
 
 # fpdf2 core fonts are latin-1; map typographic characters and drop the rest.
 _PDF_REPL = {
@@ -185,13 +186,42 @@ def render_pdf(reports: list[LocationReport], min_sources: int = 2) -> bytes:
     from fpdf import FPDF
     from fpdf.enums import XPos, YPos
 
-    NEXT = dict(new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+    pdf = FPDF(format="A4")
+    pdf.set_auto_page_break(True, margin=16)
+    pdf.set_margins(16, 14, 16)
+    pdf.add_page()
+    RIGHT = pdf.w - pdf.r_margin
+    IND = pdf.l_margin + 4
 
-    def line(txt, size=9.5, color=_DARK, style="", h=5.0, md=True):
+    def block(txt, x, size, color, style="", h=4.5):
+        """A wrapped paragraph starting at x, flowing to the right margin."""
+        pdf.set_x(x)
         pdf.set_font("Helvetica", style, size)
         pdf.set_text_color(*color)
-        pdf.multi_cell(0, h, _l1(txt), markdown=md, **NEXT)
+        pdf.multi_cell(RIGHT - x, h, _l1(txt), new_x=XPos.LMARGIN, new_y=YPos.NEXT)
 
+    def badge(txt, bg, fg=(255, 255, 255)):
+        pdf.set_font("Helvetica", "B", 7)
+        w = pdf.get_string_width(_l1(txt)) + 4
+        if pdf.get_x() + w > RIGHT:
+            pdf.ln(5.2)
+            pdf.set_x(IND)
+        x, y = pdf.get_x(), pdf.get_y()
+        pdf.set_fill_color(*bg)
+        pdf.rect(x, y, w, 4.4, style="F")
+        pdf.set_text_color(*fg)
+        pdf.set_xy(x, y + 0.55)
+        pdf.cell(w, 3.3, _l1(txt), align="C")
+        pdf.set_xy(x + w + 1.6, y)
+
+    # ── Header ───────────────────────────────────────────────────────────────
+    pdf.set_xy(pdf.l_margin, 13)
+    pdf.set_font("Helvetica", "B", 20)
+    pdf.set_text_color(*_TEAL)
+    pdf.cell(0, 9, "Water Risk Research Report", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+    pdf.ln(2)
+
+    # ── Summary box ──────────────────────────────────────────────────────────
     total, verified, judged, fully = _summary(reports)
     dims_total = dims_ok = 0
     for r in reports:
@@ -200,31 +230,43 @@ def render_pdf(reports: list[LocationReport], min_sources: int = 2) -> bytes:
                 dims_total += 1
                 if source_counts(dim.findings)[0] >= min_sources:
                     dims_ok += 1
-
-    pdf = FPDF(format="A4")
-    pdf.set_auto_page_break(True, margin=15)
-    pdf.set_margins(15, 15, 15)
-    pdf.add_page()
-
-    line("Water Risk Research Report", size=20, color=_TEAL, style="B", h=9)
     rate = (verified / total * 100) if total else 0.0
-    line(f"Locations analysed: {len(reports)}", size=10, color=_GREY, h=5)
-    line(f"Verified data points: {verified}/{total} ({rate:.0f}% source-validated)", size=10, color=_GREY, h=5)
+    metrics = [
+        ("Locations analysed", str(len(reports))),
+        ("Verified data points", f"{verified}/{total}   ({rate:.0f}% source-validated)"),
+    ]
     if judged:
-        line(f"Fully supported by source: {fully}/{judged} ({fully / judged * 100:.0f}%)", size=10, color=_GREY, h=5)
+        metrics.append(("Fully supported", f"{fully}/{judged}   ({fully / judged * 100:.0f}% of verified)"))
     if dims_total:
-        line(f"Multi-source coverage: {dims_ok}/{dims_total} dimensions with >={min_sources} distinct sources",
-             size=10, color=_GREY, h=5)
+        metrics.append(("Multi-source coverage", f"{dims_ok}/{dims_total} dimensions   (>= {min_sources} distinct)"))
 
+    y0 = pdf.get_y()
+    box_h = 3.6 + len(metrics) * 4.8
+    pdf.set_fill_color(238, 245, 247)
+    pdf.rect(pdf.l_margin, y0, RIGHT - pdf.l_margin, box_h, style="F")
+    pdf.set_xy(pdf.l_margin + 4, y0 + 2.4)
+    for label, val in metrics:
+        pdf.set_font("Helvetica", "B", 8.5)
+        pdf.set_text_color(*_TEAL)
+        pdf.cell(48, 4.8, _l1(label))
+        pdf.set_font("Helvetica", "", 8.5)
+        pdf.set_text_color(*_DARK)
+        pdf.cell(0, 4.8, _l1(val), new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+        pdf.set_x(pdf.l_margin + 4)
+    pdf.set_y(y0 + box_h + 3)
+
+    # ── Body ─────────────────────────────────────────────────────────────────
     for r in reports:
-        pdf.ln(3)
-        pdf.set_font("Helvetica", "B", 14)
+        pdf.ln(2.5)
+        pdf.set_font("Helvetica", "B", 13)
         pdf.set_text_color(*_TEAL)
         pdf.set_draw_color(*_TEAL)
-        pdf.cell(0, 8, _l1(f"Location: {r.location}"), border="B", **NEXT)
-        pdf.ln(1)
+        pdf.set_line_width(0.4)
+        pdf.cell(0, 7, _l1(f"Location: {r.location}"), border="B",
+                 new_x=XPos.LMARGIN, new_y=YPos.NEXT)
         if r.error:
-            line(f"Research error: {r.error}", color=_RED, style="I")
+            pdf.ln(1)
+            block(f"Research error: {r.error}", pdf.l_margin, 9, _RED, style="I")
             continue
 
         for dim in r.dimensions:
@@ -232,37 +274,58 @@ def render_pdf(reports: list[LocationReport], min_sources: int = 2) -> bytes:
             if dim.findings:
                 nd, nu = source_counts(dim.findings)
                 if nd >= min_sources:
-                    src = f"  -  {nd} distinct sources" + (f" across {nu} articles" if nu > nd else "")
+                    src = f"    {nd} distinct sources" + (f" / {nu} articles" if nu > nd else "")
                 else:
-                    src = f"  -  {nd} distinct source (needs >={min_sources})"
+                    src = f"    {nd} distinct source (needs >= {min_sources})"
             pdf.ln(1.5)
-            line(f"{dim.dimension.label}{src}", size=11, color=_TEAL, style="B", h=6)
+            pdf.set_font("Helvetica", "B", 10.5)
+            pdf.set_text_color(*_TEAL)
+            pdf.cell(0, 5.5, _l1(dim.dimension.label + src),
+                     new_x=XPos.LMARGIN, new_y=YPos.NEXT)
             if not dim.findings:
-                line(f"No data - {dim.note or 'no source found'}", size=9, color=_GREY, style="I")
+                block(f"No data - {dim.note or 'no source found'}", IND, 9, _GREY, style="I")
                 continue
 
             for f in dim.findings:
-                pdf.ln(1)
-                line(f"**Data:** {f.data}")
+                pdf.ln(1.8)
+                # teal bullet + Data headline
+                y = pdf.get_y()
+                pdf.set_fill_color(*_TEAL)
+                pdf.rect(pdf.l_margin, y + 1.4, 1.7, 1.7, style="F")
+                block(f.data, IND, 10, _DARK, style="B", h=4.9)
                 if f.source_url:
-                    title = f" - {f.source_title}" if f.source_title else ""
-                    line(f"**Source:** {f.source_url}{title}", size=8.5, color=_GREY)
+                    title = f"   -   {f.source_title}" if f.source_title else ""
+                    block(f.source_url + title, IND, 7.8, _GREY, h=3.9)
                 if f.excerpt:
-                    line(f'**Excerpt:** "{f.excerpt}"', size=9, color=(90, 100, 105), style="I", md=True)
-                if f.validation:
-                    ok = f.validation.status.is_ok
-                    line(f"**Validation:** {_validation_text(f.validation)}",
-                         color=(_GREEN if ok else _RED))
-                    if f.validation.method == "fuzzy" and ok and f.validation.matched_text:
-                        line(f"matched on page: \"{f.validation.matched_text}\"",
-                             size=8, color=_GREY, style="I", h=4.5)
+                    block('"' + f.excerpt + '"', IND, 8.7, (95, 105, 110), style="I", h=4.3)
+                v = f.validation
+                if v and v.method == "fuzzy" and v.status.is_ok and v.matched_text:
+                    block('matched on page: "' + v.matched_text + '"', IND + 2, 7.3, _GREY, style="I", h=3.6)
+
+                # badge row (verdicts at a glance)
+                pdf.ln(0.8)
+                pdf.set_x(IND)
+                if v:
+                    if v.status.is_ok:
+                        method = "exact" if v.method == "exact" else f"fuzzy {v.score:.0f}%"
+                        badge(f"MATCH  {method}", _GREEN)
+                    else:
+                        badge("FAILED VALIDATION", _RED)
                 if f.support:
                     c = {SupportVerdict.YES: _GREEN, SupportVerdict.PARTIAL: _AMBER,
                          SupportVerdict.NO: _RED}[f.support.verdict]
-                    reason = f" - {f.support.reason}" if f.support.reason else ""
-                    line(f"**Claim support:** {f.support.verdict.value}{reason}", color=c)
+                    badge(f"SUPPORT  {f.support.verdict.value}", c)
                 if f.relevance:
-                    line(f"**Source relevance:** {f.relevance.score}/5 - {f.relevance.reason}",
-                         size=8.5, color=_GREY)
+                    badge(f"SOURCE  {f.relevance.score}/5", _CHIP, fg=_DARK)
+                pdf.ln(5.6)
+
+                # detail lines (content that the badges summarize)
+                if v and not v.status.is_ok:
+                    reason = _validation_text(v).replace("FAILED VALIDATION - ", "")
+                    block(reason, IND, 7.8, _RED, style="I", h=3.8)
+                if f.support and f.support.reason:
+                    block(f.support.reason, IND, 8, _GREY, style="I", h=4.0)
+                if f.relevance and f.relevance.reason:
+                    block("Source: " + f.relevance.reason, IND, 7.6, _GREY, h=3.7)
 
     return bytes(pdf.output())
