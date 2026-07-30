@@ -46,6 +46,9 @@ opinion from the same fallible source. Failures are surfaced as
 
 ## Quick start
 
+> 📄 Prefer a step-by-step printable guide? See **[`docs/manual.pdf`](docs/manual.pdf)** —
+> install, configure, run, and read the results, for any user.
+
 Requires Python 3.9+ and an API key for the LLM (Claude Sonnet 5, via the
 [Anthropic API](https://console.anthropic.com) — a developer API key, separate from
 any chat subscription; a run costs a few cents).
