@@ -30,9 +30,16 @@
   pre code { background: none; color: inherit; padding: 0; font-size: inherit; }
   .lead { font-size: 11.5pt; color: #3a545e; margin-bottom: 4pt; }
   .subtitle { color: #6a8894; font-size: 10pt; margin: 2pt 0 0; }
+  .topbar { display: flex; justify-content: space-between; align-items: flex-start; gap: 20px; }
   .header {
-    border-left: 5px solid #14707f; padding-left: 14px; margin-bottom: 6pt;
+    border-left: 5px solid #14707f; padding-left: 14px; margin-bottom: 6pt; flex: 1;
   }
+  .prepared { text-align: right; padding-top: 4px; white-space: nowrap; }
+  .prepared-label {
+    display: block; font-size: 7.5pt; letter-spacing: 0.6pt; text-transform: uppercase;
+    color: #85a1ab; margin-bottom: 6px;
+  }
+  .wp-logo { width: 130px; height: auto; opacity: 0.9; }
   .tag {
     display: inline-block; background: #14707f; color: #fff; font-size: 7.5pt;
     font-weight: 600; letter-spacing: 0.5pt; text-transform: uppercase;
@@ -81,12 +88,18 @@
 </head>
 <body>
 
-  <div class="header">
-    <span class="tag">User Manual</span>
-    <h1>Water Risk Researcher</h1>
-    <p class="lead">A command-line tool that researches water-risk for any location and
-      <b>proves that every data point is backed by its source</b>.</p>
-    <p class="subtitle">Follow this guide to install, configure, run, and read the results.</p>
+  <div class="topbar">
+    <div class="header">
+      <span class="tag">User Manual</span>
+      <h1>Water Risk Researcher</h1>
+      <p class="lead">A command-line tool that researches water-risk for any location and
+        <b>proves that every data point is backed by its source</b>.</p>
+      <p class="subtitle">Follow this guide to install, configure, run, and read the results.</p>
+    </div>
+    <div class="prepared">
+      <span class="prepared-label">Developed for</span>
+      <img src="waterplan-logo.svg" class="wp-logo" alt="Waterplan">
+    </div>
   </div>
 
   <section>
