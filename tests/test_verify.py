@@ -37,6 +37,15 @@ def test_fuzzy_match_absorbs_whitespace_and_ellipsis():
     assert r.status is ValidationStatus.MATCH
 
 
+def test_fuzzy_match_reports_the_page_snippet_it_matched():
+    # A near-miss (hyphen instead of a space) is NOT an exact substring, so it takes
+    # the fuzzy path — which must expose the actual page text it aligned to.
+    excerpt = "Mexicali municipality faces extremely high baseline water-stress"
+    r = match_excerpt(excerpt, TEXT, S)
+    assert r.method == "fuzzy"
+    assert "extremely high baseline water stress" in r.matched_text
+
+
 def test_hallucinated_excerpt_is_rejected():
     r = match_excerpt("Mexicali has abundant water and no restrictions whatsoever", TEXT, S)
     assert r.status is ValidationStatus.EXCERPT_NOT_FOUND

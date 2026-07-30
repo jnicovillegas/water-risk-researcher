@@ -30,6 +30,16 @@ _WS = re.compile(r"\s+")
 _ELLIPSIS = re.compile(r"(\.\.\.|…)")
 
 
+def _snap_to_words(text: str, start: int, end: int) -> str:
+    """Expand a character-level match window out to whole-word boundaries, so the
+    shown snippet doesn't start or end mid-word (e.g. 'n 2022' -> 'in 2022')."""
+    while start > 0 and not text[start - 1].isspace():
+        start -= 1
+    while end < len(text) and not text[end].isspace():
+        end += 1
+    return text[start:end].strip()
+
+
 def normalize(text: str) -> str:
     text = unicodedata.normalize("NFKC", text)
     text = _ELLIPSIS.sub(" ", text)
@@ -62,9 +72,16 @@ def match_excerpt(excerpt: str, page_text: str, settings: Settings) -> Validatio
             detail="exact match failed; excerpt too short for a safe fuzzy check",
         )
 
-    score = fuzz.partial_ratio(ex, page)
+    # partial_ratio_alignment gives both the score AND where on the page the best
+    # match landed — so we can show the exact snippet that matched (auditable, not a
+    # black-box score). The snippet is normalized (lowercase/collapsed) page text.
+    alignment = fuzz.partial_ratio_alignment(ex, page)
+    score = alignment.score if alignment else 0.0
     if score >= settings.fuzzy_threshold:
-        return ValidationResult(status=ValidationStatus.MATCH, method="fuzzy", score=score)
+        matched = _snap_to_words(page, alignment.dest_start, alignment.dest_end) if alignment else ""
+        return ValidationResult(
+            status=ValidationStatus.MATCH, method="fuzzy", score=score, matched_text=matched,
+        )
 
     return ValidationResult(
         status=ValidationStatus.EXCERPT_NOT_FOUND, method="fuzzy", score=score,

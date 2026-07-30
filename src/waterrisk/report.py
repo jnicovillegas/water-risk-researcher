@@ -95,6 +95,8 @@ def render_markdown(reports: list[LocationReport], min_sources: int = 2) -> str:
                 out.append(f"  - **Validation:** {v.label() if v else '_not run_'}")
                 if v and v.detail and not v.status.is_ok:
                     out.append(f"    - _{v.detail}_")
+                if v and v.method == "fuzzy" and v.status.is_ok and v.matched_text:
+                    out.append(f"    - _matched on page: “{v.matched_text}”_")
                 if f.support:
                     out.append(f"  - **Claim support:** {f.support.label()}")
                 if f.relevance:
@@ -111,7 +113,7 @@ def render_csv(reports: list[LocationReport]) -> str:
     writer = csv.writer(buf)
     writer.writerow([
         "location", "dimension", "data", "source_url", "source_title",
-        "excerpt", "validation_status", "match_method", "match_score",
+        "excerpt", "validation_status", "match_method", "match_score", "matched_snippet",
         "http_status", "claim_support", "claim_support_reason", "relevance_score",
     ])
     for r in reports:
@@ -123,6 +125,7 @@ def render_csv(reports: list[LocationReport]) -> str:
                 v.status.value if v else "not_run",
                 v.method if v else "",
                 f"{v.score:.0f}" if v else "",
+                v.matched_text if v else "",
                 v.http_status if v and v.http_status else "",
                 f.support.verdict.value if f.support else "",
                 f.support.reason if f.support else "",

@@ -61,6 +61,7 @@ class ValidationResult(BaseModel):
     method: str = "none"          # "exact" | "fuzzy" | "none"
     score: float = 0.0            # match confidence 0-100
     detail: str = ""             # human-readable reason, esp. on failure
+    matched_text: str = ""        # for fuzzy: the actual page snippet that matched (auditable)
     http_status: Optional[int] = None
 
     def label(self) -> str:
