@@ -6,6 +6,7 @@ import csv
 import io
 
 from .models import LocationReport, SupportVerdict
+from .sources import source_counts
 
 
 def _summary(reports: list[LocationReport]) -> tuple[int, int, int, int]:
@@ -23,9 +24,18 @@ def _summary(reports: list[LocationReport]) -> tuple[int, int, int, int]:
     return total, verified, judged, fully_supported
 
 
-def render_markdown(reports: list[LocationReport]) -> str:
+def render_markdown(reports: list[LocationReport], min_sources: int = 2) -> str:
     total, verified, judged, fully_supported = _summary(reports)
     rate = (verified / total * 100) if total else 0.0
+
+    dims_total = dims_ok = 0
+    for r in reports:
+        for dim in r.dimensions:
+            if dim.findings:
+                dims_total += 1
+                if source_counts(dim.findings)[0] >= min_sources:
+                    dims_ok += 1
+
     out: list[str] = [
         "# Water Risk Research Report",
         "",
@@ -37,6 +47,11 @@ def render_markdown(reports: list[LocationReport]) -> str:
         out.append(
             f"**Fully supported by source:** {fully_supported}/{judged} "
             f"({s_rate:.0f}% of verified claims fully backed by their excerpt)  "
+        )
+    if dims_total:
+        out.append(
+            f"**Multi-source coverage:** {dims_ok}/{dims_total} dimensions with "
+            f"≥{min_sources} distinct sources  "
         )
     out += [
         "",
@@ -57,7 +72,16 @@ def render_markdown(reports: list[LocationReport]) -> str:
             continue
 
         for dim in r.dimensions:
-            out.append(f"### {dim.dimension.emoji} Dimension: {dim.dimension.label}")
+            header = f"### {dim.dimension.emoji} Dimension: {dim.dimension.label}"
+            if dim.findings:
+                n_dom, n_url = source_counts(dim.findings)
+                if n_dom >= min_sources:
+                    extra = f" across {n_url} articles" if n_url > n_dom else ""
+                    header += f"  ·  Sources: {n_dom} distinct{extra}"
+                else:
+                    word = "source" if n_dom == 1 else "sources"
+                    header += f"  ·  ⚠️ {n_dom} distinct {word} (brief requires ≥{min_sources})"
+            out.append(header)
             if not dim.findings:
                 out.append(f"- _No data — {dim.note or 'no source found'}_")
                 out.append("")
