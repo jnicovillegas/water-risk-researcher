@@ -1,7 +1,7 @@
 """Deterministic multi-source check.
 
 The brief requires >= 2 DIFFERENT sources per researched item (dimension). Like the
-excerpt-existence check, this is mechanical and un-gameable — no AI, no judgment.
+excerpt-existence check, this is deterministic and un-gameable — no AI, no judgment.
 
 A "source" is an outlet, not a page: two articles from the same domain count as one
 source, so the bar can't be met by pulling two quotes from a single site. We report

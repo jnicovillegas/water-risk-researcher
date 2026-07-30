@@ -5,7 +5,7 @@
 **Fully supported by source:** 11/20 (55% of verified claims fully backed by their excerpt)  
 **Multi-source coverage:** 9/9 dimensions with ≥2 distinct sources  
 
-> Two independent checks per data point: **Validation** confirms the excerpt really exists on the page (mechanical); **Claim support** confirms the excerpt actually backs the claim (`YES`/`PARTIAL`/`NO`). Failures are surfaced, never hidden.
+> Two independent checks per data point: **Validation** confirms the excerpt really exists on the page (deterministic); **Claim support** confirms the excerpt actually backs the claim (`YES`/`PARTIAL`/`NO`). Failures are surfaced, never hidden.
 
 ---
 

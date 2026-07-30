@@ -57,7 +57,7 @@ def render_markdown(reports: list[LocationReport], min_sources: int = 2) -> str:
     out += [
         "",
         "> Two independent checks per data point: **Validation** confirms the excerpt "
-        "really exists on the page (mechanical); **Claim support** confirms the excerpt "
+        "really exists on the page (deterministic); **Claim support** confirms the excerpt "
         "actually backs the claim (`YES`/`PARTIAL`/`NO`). Failures are surfaced, never hidden.",
         "",
         "---",
