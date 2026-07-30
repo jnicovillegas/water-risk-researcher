@@ -48,7 +48,7 @@ authority. Every failure is surfaced — `❌ FAILED VALIDATION` or a `NO` — n
 
 ## Quick start
 
-> 📄 Prefer a step-by-step printable guide? See **[`docs/user-guide.pdf`](docs/user-guide.pdf)** —
+> 📄 Prefer a step-by-step printable guide? See **[`user-guide.pdf`](user-guide.pdf)** —
 > install, configure, run, and read the results, for any user.
 
 Requires Python 3.9+ and an API key for the LLM (Claude Sonnet 5, via the
