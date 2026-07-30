@@ -17,7 +17,6 @@ from pathlib import Path
 from dotenv import load_dotenv
 
 from .config import Settings, require_api_key
-from .models import LocationReport
 from .pipeline import Pipeline
 from .report import render_csv, render_markdown
 
@@ -58,11 +57,9 @@ def _parse_args(argv) -> argparse.Namespace:
     return p.parse_args(argv)
 
 
-def _progress(report: LocationReport) -> None:
-    findings = report.all_findings()
-    ok = sum(1 for f in findings if f.validation and f.validation.status.is_ok)
-    tag = "⛔ ERROR" if report.error else f"{ok}/{len(findings)} verified"
-    print(f"  ✓ {report.location} — {tag}", file=sys.stderr)
+def _emit(location: str, msg: str) -> None:
+    label = (location[:24] + "…") if len(location) > 25 else location
+    print(f"  [{label:<25}] {msg}", file=sys.stderr, flush=True)
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -84,7 +81,7 @@ def main(argv: list[str] | None = None) -> int:
           file=sys.stderr)
 
     pipeline = Pipeline(settings)
-    reports = asyncio.run(pipeline.run(locations, on_progress=_progress))
+    reports = asyncio.run(pipeline.run(locations, on_event=_emit))
 
     markdown = render_markdown(reports)
     out_path = Path(args.output)

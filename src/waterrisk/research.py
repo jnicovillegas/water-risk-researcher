@@ -10,8 +10,10 @@ The search layer is intentionally isolated behind one class so it can be swapped
 
 from __future__ import annotations
 
+import asyncio
 import json
 
+import httpx
 from anthropic import AsyncAnthropic
 
 from .cache import DiskCache
@@ -66,38 +68,104 @@ class ResearchAgent:
     def __init__(self, settings: Settings, cache: DiskCache):
         self.settings = settings
         self.cache = cache
-        self.client = AsyncAnthropic()
+        self.client = AsyncAnthropic(
+            max_retries=0,  # we handle retries ourselves (a mid-stream failure can't be auto-resumed)
+            timeout=httpx.Timeout(settings.research_timeout, connect=10.0),
+        )
         self.system = SYSTEM_PROMPT.format(n_sources=settings.sources_per_dimension)
         self.user_dims = _build_user_prompt()
 
-    async def research(self, location: str) -> LocationReport:
+    async def research(self, location: str, on_event=None) -> LocationReport:
         cache_key = f"{self.settings.model}|{location}"
         cached = self.cache.get("research", cache_key)
         if cached is not None:
+            if on_event:
+                on_event("💾 from cache (no search)")
             return self._parse(location, cached)
 
-        try:
-            raw = await self._call_claude(location)
-        except Exception as exc:  # surface API/network errors per-location, don't crash the run
-            return LocationReport(location=location, error=f"research failed: {type(exc).__name__}: {exc}")
+        # The research call is long (multiple web searches + generation), so a
+        # transient network/read failure mid-stream is a real risk. Retry the whole
+        # call — findings are independent and only the successful result is cached.
+        last_exc = None
+        for attempt in range(self.settings.research_retries + 1):
+            try:
+                raw = await self._call_claude(location, on_event)
+                self.cache.set("research", cache_key, raw)
+                return self._parse(location, raw)
+            except Exception as exc:  # surface per-location, never crash the whole run
+                last_exc = exc
+                if attempt < self.settings.research_retries:
+                    if on_event:
+                        on_event(f"🔁 retrying ({type(exc).__name__})…")
+                    await asyncio.sleep(1.5 * (attempt + 1))
 
-        self.cache.set("research", cache_key, raw)
-        return self._parse(location, raw)
+        return LocationReport(
+            location=location,
+            error=f"research failed after {self.settings.research_retries + 1} attempts: "
+                  f"{type(last_exc).__name__}: {last_exc}",
+        )
 
-    async def _call_claude(self, location: str) -> dict:
+    async def _call_claude(self, location: str, on_event=None) -> dict:
+        """Stream the research call so progress (each web search, reading, writing)
+        can be surfaced live. Server-side web_search runs inside this one request;
+        streaming lets us watch it happen instead of blocking in silence."""
+
+        def emit(msg: str) -> None:
+            if on_event:
+                on_event(msg)
+
         message = f"Location: {location}\n\n{self.user_dims}"
-        resp = await self.client.messages.create(
+        tools = [{
+            "type": "web_search_20250305",
+            "name": "web_search",
+            "max_uses": self.settings.max_search_uses,
+        }]
+
+        block_type: dict = {}   # block index -> type
+        tool_json: dict = {}    # block index -> accumulated tool-input JSON
+
+        async with self.client.messages.stream(
             model=self.settings.model,
-            max_tokens=4096,
+            max_tokens=self.settings.max_tokens,
             system=self.system,
             messages=[{"role": "user", "content": message}],
-            tools=[{
-                "type": "web_search_20250305",
-                "name": "web_search",
-                "max_uses": self.settings.max_search_uses,
-            }],
-        )
-        text = "".join(getattr(b, "text", "") for b in resp.content if b.type == "text")
+            tools=tools,
+        ) as stream:
+            async for event in stream:
+                if event.type == "content_block_start":
+                    bt = event.content_block.type
+                    block_type[event.index] = bt
+                    if bt == "server_tool_use":
+                        tool_json[event.index] = ""
+                    elif bt == "thinking":
+                        emit("🤔 analyzing…")
+                    elif bt == "web_search_tool_result":
+                        emit("📄 reading results…")
+                    elif bt == "text":
+                        emit("✍️  writing findings…")
+                elif event.type == "content_block_delta":
+                    delta = event.delta
+                    if getattr(delta, "type", None) == "input_json_delta":
+                        tool_json[event.index] = tool_json.get(event.index, "") + delta.partial_json
+                elif event.type == "content_block_stop":
+                    if block_type.get(event.index) == "server_tool_use":
+                        try:
+                            query = json.loads(tool_json.get(event.index, "{}")).get("query", "")
+                        except json.JSONDecodeError:
+                            query = ""
+                        if query:
+                            emit(f'🔎 searching: "{query}"')
+
+            final = await stream.get_final_message()
+
+        text = "".join(getattr(b, "text", "") for b in final.content if b.type == "text")
+        if not text.strip():
+            # The model spent its whole budget on thinking + web searches and never
+            # emitted the JSON. Fail loudly instead of silently reporting "no data".
+            raise RuntimeError(
+                f"empty response (stop_reason={final.stop_reason}); the output was likely "
+                f"truncated before the JSON — increase max_tokens (current {self.settings.max_tokens})."
+            )
         return _extract_json(text)
 
     def _parse(self, location: str, payload: dict) -> LocationReport:

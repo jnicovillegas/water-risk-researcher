@@ -23,9 +23,14 @@ class Settings:
     model: str = DEFAULT_MODEL
 
     # --- Research (generation) ---
+    max_tokens: int = 16000           # output budget: must cover the model's thinking +
+                                      # web-search steps + the final JSON. Too low and the
+                                      # response is truncated before the JSON is written.
     max_search_uses: int = 5          # cap web_search calls per location (cost control)
     sources_per_dimension: int = 2    # brief requires >= 2 sources per item
     research_concurrency: int = 4     # locations processed simultaneously
+    research_retries: int = 2         # retry the (long) research call on transient failures
+    research_timeout: float = 600.0   # generous ceiling for the streamed research call
 
     # --- Verification ---
     verify_concurrency: int = 8       # simultaneous URL fetches
