@@ -16,6 +16,7 @@ from .critique import CritiqueAgent
 from .fetch import Fetcher, build_client
 from .models import LocationReport
 from .research import ResearchAgent
+from .support import SupportJudge
 from .verify import Verifier
 
 
@@ -32,6 +33,7 @@ class Pipeline:
         self.cache = DiskCache(settings.cache_dir, enabled=settings.use_cache)
         self.research_agent = ResearchAgent(settings, self.cache)
         self.verifier = Verifier(settings, Fetcher(settings, self.cache))
+        self.judge = SupportJudge(settings) if settings.support_check else None
         self.critic = CritiqueAgent(settings) if settings.critique else None
 
     async def run(self, locations: list[str], on_event=None) -> list[LocationReport]:
@@ -61,6 +63,11 @@ class Pipeline:
                         finding.validation = await self.verifier.verify(client, finding)
 
                 await asyncio.gather(*(verify_one(f) for f in report.all_findings()))
+
+                # Second verification layer: does each verified excerpt back its claim?
+                if self.judge:
+                    emit(location, "⚖️  checking claim support…")
+                    await self.judge.judge(report)
 
                 if self.critic:
                     emit(location, "🧠 scoring source relevance…")

@@ -48,6 +48,8 @@ def _parse_args(argv) -> argparse.Namespace:
     p.add_argument("-i", "--input", help="JSON file: array of location strings.")
     p.add_argument("-o", "--output", default="out/report.md", help="Markdown output path.")
     p.add_argument("--csv", action="store_true", help="Also write a consolidated CSV report.")
+    p.add_argument("--no-support", action="store_true",
+                   help="Disable the claim-support check (does the excerpt back the claim?).")
     p.add_argument("--critique", action="store_true", help="AI self-critique of source relevance (bonus).")
     p.add_argument("--no-cache", action="store_true", help="Disable the on-disk cache.")
     p.add_argument("--model", help="Override the Anthropic model id.")
@@ -69,6 +71,7 @@ def main(argv: list[str] | None = None) -> int:
 
     settings = Settings(
         use_cache=not args.no_cache,
+        support_check=not args.no_support,
         critique=args.critique,
         research_concurrency=args.research_concurrency,
         verify_concurrency=args.verify_concurrency,

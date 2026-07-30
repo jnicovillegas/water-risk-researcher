@@ -47,7 +47,8 @@ class Settings:
     use_cache: bool = True
     cache_dir: str = ".cache"
 
-    # --- Optional stages ---
+    # --- Extra verification / optional stages ---
+    support_check: bool = True        # claim-support judge: does the excerpt back the claim?
     critique: bool = False            # AI self-critique of source relevance (bonus)
 
 

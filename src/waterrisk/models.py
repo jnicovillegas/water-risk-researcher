@@ -84,6 +84,28 @@ class Relevance(BaseModel):
     reason: str = ""
 
 
+class SupportVerdict(str, Enum):
+    """Does the verified excerpt actually support the data claim? A separate,
+    closed-book judgment — distinct from 'does the excerpt exist' (verification)."""
+
+    YES = "YES"          # every assertion in the claim is supported by the excerpt
+    PARTIAL = "PARTIAL"  # main assertion supported, but the claim adds unstated specifics
+    NO = "NO"            # main assertion unsupported, contradicted, or off-topic
+
+    @property
+    def emoji(self) -> str:
+        return {SupportVerdict.YES: "✅", SupportVerdict.PARTIAL: "⚠️", SupportVerdict.NO: "❌"}[self]
+
+
+class ClaimSupport(BaseModel):
+    verdict: SupportVerdict
+    reason: str = ""     # justification; for PARTIAL/NO, names the unsupported part
+
+    def label(self) -> str:
+        tail = f" — {self.reason}" if self.reason else ""
+        return f"{self.verdict.emoji} {self.verdict.value}{tail}"
+
+
 class Finding(BaseModel):
     """A single claim about a location+dimension, with its source and proof."""
 
@@ -92,8 +114,9 @@ class Finding(BaseModel):
     source_url: str = ""
     source_title: str = ""
     excerpt: str = ""
-    validation: Optional[ValidationResult] = None
-    relevance: Optional[Relevance] = None
+    validation: Optional[ValidationResult] = None   # does the excerpt exist on the page?
+    support: Optional[ClaimSupport] = None          # does the excerpt back the claim?
+    relevance: Optional[Relevance] = None           # is the source authoritative? (bonus)
 
 
 class DimensionResult(BaseModel):

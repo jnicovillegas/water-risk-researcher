@@ -35,6 +35,12 @@ contiguous quote of one to three sentences, exactly as it appears on the page. \
 Do not paraphrase, summarize, translate, or stitch together non-adjacent text. \
 An independent program will re-download the page and check the excerpt character \
 by character, so an inexact excerpt will be flagged as a failure.
+- The "data" claim MUST be fully supported by its own "excerpt". State ONLY what the \
+excerpt proves. Do NOT add figures, dates, names, scope, or context that are not present \
+in the excerpt — even if you found them elsewhere or believe them true. If an important \
+detail lives elsewhere on the page, quote a longer (still contiguous) excerpt that \
+includes it, or leave the detail out. A separate auditor checks that the excerpt fully \
+backs the claim, so any detail the excerpt does not state will be flagged as unsupported.
 - If you cannot find a genuine source for a dimension, return an empty "findings" \
 list for it and explain in "note". Never fabricate a source to fill the gap.
 
@@ -45,7 +51,7 @@ Return ONLY a JSON object, no prose and no markdown fences, matching exactly:
       "dimension": "water_stress" | "incidents" | "regulations",
       "findings": [
         {{
-          "data": "concise factual claim",
+          "data": "concise factual claim, fully supported by the excerpt below",
           "source_url": "https://...",
           "source_title": "page or publication title",
           "excerpt": "verbatim quote from the page"
