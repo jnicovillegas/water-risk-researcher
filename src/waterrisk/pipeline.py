@@ -1,4 +1,4 @@
-"""Async orchestration: research → verify → (optional) critique.
+"""Async orchestration: research → verify → claim-support → (optional) relevance.
 
 Concurrency is bounded at every stage with semaphores. This is the shape that
 scales to 1,000 locations: the same code path, just wider fan-out plus the disk

@@ -3,7 +3,7 @@
 After verification, a second Claude pass — with NO web access — scores how
 authoritative and on-topic each *verified* source is for its dimension. This is
 a separate concern from "does the excerpt exist" (verification): a quote can be
-real but come from a weak source. Only runs with --critique.
+real but come from a weak source. Only runs with --relevance.
 """
 
 from __future__ import annotations

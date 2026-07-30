@@ -77,7 +77,8 @@ waterrisk "Plant in Mexicali, Mexico" "Factory in Chandler, Arizona, USA"
 ```
 
 The Markdown report prints to the console; every requested `--format` is written
-to `<output>.<ext>` (default base `out/report`).
+to `<output>.<ext>` (default base `out/report`). See [`sample_output/`](sample_output/)
+for a full example run in all four formats.
 
 ### Options
 
@@ -90,6 +91,7 @@ to `<output>.<ext>` (default base `out/report`).
 | `--relevance` | Add the source-relevance rating — seal ③ (off by default) |
 | `--no-cache` | Force fresh searches instead of reusing saved results |
 | `--model ID` | Use a different model id |
+| `--quiet` | Don't print the report to the console (files are still written) |
 | `--version` | Show the version |
 | `--research-concurrency N` / `--verify-concurrency N` | Tune fan-out |
 
