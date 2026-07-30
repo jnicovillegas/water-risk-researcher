@@ -46,7 +46,7 @@ opinion from the same fallible source. Failures are surfaced as
 
 ## Quick start
 
-> 📄 Prefer a step-by-step printable guide? See **[`docs/manual.pdf`](docs/manual.pdf)** —
+> 📄 Prefer a step-by-step printable guide? See **[`docs/user-guide.pdf`](docs/user-guide.pdf)** —
 > install, configure, run, and read the results, for any user.
 
 Requires Python 3.9+ and an API key for the LLM (Claude Sonnet 5, via the
