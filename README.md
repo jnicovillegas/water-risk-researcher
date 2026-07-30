@@ -61,8 +61,8 @@ pip install -e .
 # 2. configure your key
 cp .env.example .env      # then edit .env and paste your ANTHROPIC_API_KEY
 
-# 3. run on the example locations
-waterrisk --input locations.example.json --output out/report.md --csv
+# 3. run on the example locations, in several formats
+waterrisk --input locations.example.json --format md,csv,pdf
 ```
 
 Or pass locations directly:
@@ -71,19 +71,21 @@ Or pass locations directly:
 waterrisk "Plant in Mexicali, Mexico" "Factory in Chandler, Arizona, USA"
 ```
 
-The Markdown report prints to the console and is written to `--output`. With
-`--csv` a consolidated `out/report.csv` is written too.
+The Markdown report prints to the console; every requested `--format` is written
+to `<output>.<ext>` (default base `out/report`).
 
 ### Options
 
 | Flag | Description |
 |------|-------------|
 | `-i, --input FILE` | JSON file with an array of location strings |
-| `-o, --output PATH` | Markdown output path (default `out/report.md`) |
-| `--csv` | Also write a consolidated CSV report (bonus) |
-| `--critique` | AI self-critique scoring source relevance 0–5 (bonus) |
-| `--no-cache` | Disable the on-disk cache |
-| `--model ID` | Override the Anthropic model id |
+| `-o, --output PATH` | Base path for the reports (default `out/report`) |
+| `--format LIST` | Output formats: `md`, `csv`, `json`, `pdf` (default `md`). E.g. `--format md,csv,pdf` |
+| `--no-support` | Skip the claim-support check — seal ② (on by default) |
+| `--relevance` | Add the source-relevance rating — seal ③ (off by default) |
+| `--no-cache` | Force fresh searches instead of reusing saved results |
+| `--model ID` | Use a different model id |
+| `--version` | Show the version |
 | `--research-concurrency N` / `--verify-concurrency N` | Tune fan-out |
 
 ---
@@ -165,8 +167,8 @@ configuration and a few operational additions:
 ## Bonus features
 
 - ✅ **Caching** to avoid duplicate searches/fetches (`--no-cache` to disable).
-- ✅ **Consolidated CSV** report (`--csv`).
-- ✅ **AI self-critique** of source relevance (`--critique`) — a separate,
+- ✅ **Consolidated reports** in `csv`, `json`, and `pdf` (`--format`), alongside Markdown.
+- ✅ **AI self-critique** of source relevance (`--relevance`) — a separate,
   web-less LLM pass scoring each verified source 0–5 for authority/fit.
   Deliberately distinct from verification: a quote can be *real* yet come from a
   *weak* source.

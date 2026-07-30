@@ -13,6 +13,7 @@ dependencies = [
     "rapidfuzz>=3.9",
     "pydantic>=2.7",
     "python-dotenv>=1.0",
+    "fpdf2>=2.7.6",
 ]
 
 [project.optional-dependencies]

@@ -131,7 +131,7 @@
       <div>
         <h3>③ Is the source solid?</h3>
         <p>An optional pass rates each source's authority from 0 to 5
-          (<code>--critique</code>). A real quote can still come from a weak source.</p>
+          (<code>--relevance</code>). A real quote can still come from a weak source.</p>
       </div>
     </div>
     <p class="muted">Anything that can't be proven is shown as a clear failure — never hidden.</p>
@@ -183,8 +183,8 @@ ANTHROPIC_API_KEY=sk-ant-your-key-here</code></pre>
     <pre><code>waterrisk --input locations.example.json</code></pre>
     <p class="annot">The file is a simple JSON list, e.g. <code>["Plant in Mexicali, Mexico", "..."]</code></p>
 
-    <h3>A full run with everything on</h3>
-    <pre><code>waterrisk --no-cache --csv --critique --input locations.example.json</code></pre>
+    <h3>A full run — several formats, all checks on</h3>
+    <pre><code>waterrisk --input locations.example.json --format md,csv,pdf --relevance</code></pre>
     <p>While it runs you'll see live progress — each search, each source being verified —
       so you always know it's working. The report prints to the screen and is saved to a file.</p>
   </section>
@@ -194,14 +194,14 @@ ANTHROPIC_API_KEY=sk-ant-your-key-here</code></pre>
     <table>
       <tr><th>Option</th><th>What it does</th></tr>
       <tr><td><code>-i, --input FILE</code></td><td>Read locations from a JSON file (a list of strings).</td></tr>
-      <tr><td><code>-o, --output PATH</code></td><td>Where to save the Markdown report (default <code>out/report.md</code>).</td></tr>
-      <tr><td><code>--csv</code></td><td>Also save a consolidated spreadsheet (<code>.csv</code>).</td></tr>
-      <tr><td><code>--critique</code></td><td>Add the source-authority rating (0–5) to each finding.</td></tr>
-      <tr><td><code>--no-support</code></td><td>Turn off the claim-support judge (check ②).</td></tr>
+      <tr><td><code>-o, --output PATH</code></td><td>Base path for the reports (default <code>out/report</code>).</td></tr>
+      <tr><td><code>--format LIST</code></td><td>Output formats: <code>md</code>, <code>csv</code>, <code>json</code>, <code>pdf</code> (default <code>md</code>). E.g. <code>--format md,csv,pdf</code>.</td></tr>
+      <tr><td><code>--no-support</code></td><td>Skip the claim-support check — seal ② (on by default).</td></tr>
+      <tr><td><code>--relevance</code></td><td>Add the source-relevance rating — seal ③ (off by default).</td></tr>
       <tr><td><code>--no-cache</code></td><td>Force fresh searches instead of reusing saved results.</td></tr>
       <tr><td><code>--model ID</code></td><td>Use a different model id.</td></tr>
       <tr><td><code>--quiet</code></td><td>Don't print the report to the screen (only save it).</td></tr>
-      <tr><td><code>--help</code></td><td>Show all options.</td></tr>
+      <tr><td><code>--version</code> / <code>--help</code></td><td>Show the version / all options.</td></tr>
     </table>
     <p class="annot"><b>About the cache:</b> repeating a location returns instantly from memory.
       Add <code>--no-cache</code> to force a real, fresh search.</p>
@@ -223,7 +223,7 @@ ANTHROPIC_API_KEY=sk-ant-your-key-here</code></pre>
       <p style="margin:0 0 3pt"><b>Claim support:</b> <span class="seal warn">⚠️ PARTIAL — the excerpt doesn't mention the score</span></p>
       <p class="annot" style="margin:0 0 6pt">↳ check ②: does the quote back the claim? Names what's missing.</p>
       <p style="margin:0 0 3pt"><b>Source relevance:</b> 5/5 — authoritative source</p>
-      <p class="annot" style="margin:0">↳ check ③ (only with <code>--critique</code>).</p>
+      <p class="annot" style="margin:0">↳ check ③ (only with <code>--relevance</code>).</p>
     </div>
 
     <h3>The summary at the top</h3>
