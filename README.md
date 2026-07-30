@@ -16,8 +16,8 @@ actually exists on the page.
 ## The core idea: generation and verification are different trust levels
 
 An LLM can hallucinate a plausible statistic, a real-looking URL, and a
-convincing quote — all at once. So this tool never trusts the model to be
-correct. It splits the work into two layers:
+convincing quote — all at once. So this tool never trusts the model. It splits the
+work so that generation (which can lie) is always checked by verification (trusted):
 
 ```
                  ┌─────────────────────────────────────────────┐
@@ -26,21 +26,23 @@ correct. It splits the work into two layers:
                  └───────────────────────┬─────────────────────┘
                                          │  proposals
                  ┌───────────────────────▼─────────────────────┐
-                 │  2. VERIFICATION  (deterministic, trusted)   │
-                 │  re-fetch the live URL → extract text →      │
-                 │  prove the excerpt is really there           │
+                 │  2. VERIFICATION  (trusted)                  │
+                 │  a. does the excerpt exist?   (no AI)        │
+                 │  b. does it back the claim?   (AI judge)     │
                  └───────────────────────┬─────────────────────┘
                                          │  validated findings
                  ┌───────────────────────▼─────────────────────┐
-                 │  3. REPORT   Markdown + CSV, failures shown  │
+                 │  3. REPORT   md/csv/json/pdf, failures shown │
                  └─────────────────────────────────────────────┘
 ```
 
-The verifier uses **no AI**. It downloads the page the LLM cited and checks the
-excerpt with exact + fuzzy string matching. The model cannot make text appear on
-a page it doesn't control, so a survived check is real evidence — not a second
-opinion from the same fallible source. Failures are surfaced as
-`❌ FAILED VALIDATION`, never hidden.
+**Verification asks two separate questions.** *Does the excerpt exist?* — a
+deterministic, no-AI string match against the live page; the model cannot make text
+appear on a page it doesn't control, so a survived check is real evidence.
+*Does the excerpt back the claim?* — a separate, closed-book judge (given only the
+claim and its verified excerpt) rules `YES / PARTIAL / NO`, catching claims that
+overreach their source. A third, optional pass (`--relevance`) rates each source's
+authority. Every failure is surfaced — `❌ FAILED VALIDATION` or a `NO` — never hidden.
 
 ---
 
@@ -95,18 +97,24 @@ to `<output>.<ext>` (default base `out/report`).
 ```markdown
 ## 📍 Location: Mexicali, Mexico
 
-### 💧 Dimension: Water Stress
-- **Data:** Extremely High baseline water stress (score 4.8/5)
+### 💧 Dimension: Water Stress  ·  Sources: 3 distinct
+- **Data:** Mexicali faces extremely high baseline water stress.
   - **Source:** https://www.wri.org/applications/aqueduct/... — WRI Aqueduct
   - **Excerpt:** “...Mexicali faces extremely high baseline water stress...”
   - **Validation:** ✅ MATCH FOUND (fuzzy 96%)
+    - _matched on page: “...mexicali faces extremely high baseline water stress...”_
+  - **Claim support:** ✅ YES — the excerpt directly supports the claim.
+  - **Source relevance:** 5/5 — WRI Aqueduct is the authoritative source.
 
-### ⚠️ Dimension: Incidents
-- **Data:** Protests in 2018 over a brewery plant.
+### ⚠️ Dimension: Incidents  ·  Sources: 2 distinct
+- **Data:** Residents protested a brewery plant over its water use.
   - **Source:** https://www.example-news.com/...
   - **Excerpt:** “Residents of Mexicali protested against...”
   - **Validation:** ❌ FAILED VALIDATION: excerpt not found in source content
 ```
+
+`Claim support` and `Source relevance` (the latter only with `--relevance`) appear
+under each verified finding. `matched on page` is shown for fuzzy matches.
 
 ---
 
@@ -129,8 +137,10 @@ works from real retrieved search content, not parametric memory, and is told it
 cannot invent sources; (2) every excerpt is re-checked, character by character,
 against the live page by a deterministic matcher. Exact match first, then a
 length- and threshold-guarded fuzzy match (`rapidfuzz.partial_ratio`) to absorb
-whitespace/encoding noise without letting false positives through. This logic has
-unit tests (`tests/test_verify.py`) that run with no network.
+whitespace/encoding noise without letting false positives through. On top of that,
+a closed-book claim-support judge checks that the excerpt actually *backs* the claim
+(not just that it exists), and a deterministic multi-source check requires ≥2 distinct
+source domains per dimension. This logic is unit-tested (`tests/`) with no network.
 
 **Scalability (1,000 locations).** See the next section.
 
@@ -182,8 +192,9 @@ pip install -e ".[dev]"
 pytest
 ```
 
-The tests pin the matching behaviour (exact, fuzzy, hallucination rejection,
-short-excerpt safety, HTML text extraction) with no network calls.
+The tests pin the deterministic logic — excerpt matching (exact, fuzzy, hallucination
+rejection), the multi-source check, and every output renderer (md/csv/json/pdf) —
+with no network calls.
 
 ---
 
@@ -209,14 +220,16 @@ short-excerpt safety, HTML text extraction) with no network calls.
 ```
 src/waterrisk/
 ├── cli.py         # argument parsing, entrypoint
-├── pipeline.py    # async orchestration (research → verify → critique)
+├── pipeline.py    # async orchestration (research → verify → support → relevance)
 ├── research.py    # generation: LLM + web search → structured findings
-├── verify.py      # deterministic excerpt verification (the core)
-├── fetch.py       # robust async fetching + text extraction + block detection
-├── critique.py    # optional AI self-critique of source relevance
+├── verify.py      # deterministic excerpt verification — seal 1 (the core)
+├── support.py     # closed-book claim-support judge — seal 2
+├── critique.py    # optional AI source-relevance rating — seal 3
+├── sources.py     # deterministic multi-source check (distinct domains)
+├── fetch.py       # robust async fetching (HTML + PDF) + block detection
 ├── cache.py       # on-disk cache (research responses + page bodies)
-├── report.py      # Markdown + CSV rendering
+├── report.py      # Markdown / CSV / JSON / PDF rendering
 ├── models.py      # typed pydantic contracts
 └── config.py      # all tunables in one place
-tests/test_verify.py
+tests/            # test_verify.py · test_sources.py · test_report.py
 ```
