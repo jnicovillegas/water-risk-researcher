@@ -166,7 +166,16 @@ class ResearchAgent:
                 f"empty response (stop_reason={final.stop_reason}); the output was likely "
                 f"truncated before the JSON — increase max_tokens (current {self.settings.max_tokens})."
             )
-        return _extract_json(text)
+        parsed = _extract_json(text)
+        if not parsed.get("dimensions"):
+            # We got text but no parseable dimensions — the JSON was truncated or
+            # malformed this run (the model is non-deterministic). Raise so the caller
+            # retries, instead of silently reporting "no data".
+            raise RuntimeError(
+                f"could not parse dimensions from response (stop_reason={final.stop_reason}, "
+                f"{len(text)} chars); JSON likely truncated or malformed."
+            )
+        return parsed
 
     def _parse(self, location: str, payload: dict) -> LocationReport:
         report = LocationReport(location=location)

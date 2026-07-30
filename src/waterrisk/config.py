@@ -23,7 +23,7 @@ class Settings:
     model: str = DEFAULT_MODEL
 
     # --- Research (generation) ---
-    max_tokens: int = 16000           # output budget: must cover the model's thinking +
+    max_tokens: int = 24000           # output budget: must cover the model's thinking +
                                       # web-search steps + the final JSON. Too low and the
                                       # response is truncated before the JSON is written.
     max_search_uses: int = 5          # cap web_search calls per location (cost control)
