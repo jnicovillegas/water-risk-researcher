@@ -1,8 +1,8 @@
 # Water Risk Research Report
 
 **Locations analysed:** 3  
-**Verified data points:** 25/34 (74% source-validated)
-**Fully supported by source:** 11/25 (44% of verified claims fully backed by their excerpt)  
+**Verified data points:** 18/25 (72% source-validated)
+**Fully supported by source:** 12/18 (67% of verified claims fully backed by their excerpt)  
 **Multi-source coverage:** 9/9 dimensions with ≥2 distinct sources  
 
 > Two independent checks per data point: **Validation** confirms the excerpt really exists on the page (mechanical); **Claim support** confirms the excerpt actually backs the claim (`YES`/`PARTIAL`/`NO`). Failures are surfaced, never hidden.
@@ -11,200 +11,158 @@
 
 ## 📍 Location: Plant in Mexicali, Mexico
 
-### 💧 Dimension: Water Stress  ·  Sources: 4 distinct
-- **Data:** Mexico is one of only four countries (India, Mexico, Egypt, Turkey) that account for a very large share of the global GDP exposed to high water stress, and WRI's Aqueduct data identifies Mexico among the group of extremely water-stressed nations.
-  - **Source:** https://www.wri.org/insights/highest-water-stressed-countries — 25 Countries, Housing One-Quarter of the Population, Face Extremely High Water Stress
-  - **Excerpt:** “According to data from Aqueduct, 31% of global GDP — a whopping $70 trillion — will be exposed to high water stress by 2050, up from $15 trillion (24% of global GDP) in 2010.”
-  - **Validation:** ✅ MATCH FOUND (exact)
-  - **Claim support:** ❌ NO — Excerpt only gives global GDP water-stress figures and does not mention Mexico, India, Egypt, or Turkey.
-- **Data:** The Mexicali Valley, where the plant is located, is described as a desert region with an over-exploited aquifer fed by the Colorado River, already facing serious water shortages.
-  - **Source:** https://www.prnewswire.com/news-releases/mexicali-resiste-activist-vs-constellation-brands-activists-demand-water-rights-and-freedom-301347825.html — Mexicali Resiste Activist VS. Constellation Brands: Activists demand WATER RIGHTS and FREEDOM
-  - **Excerpt:** “This desert region has an over-exploited aquifer that is fed by the Colorado River with serious water shortages and serious drought issues in Tijuana, Tecate, Rosarito and Ensenada.”
-  - **Validation:** ✅ MATCH FOUND (fuzzy 99%)
-  - **Claim support:** ✅ YES — Excerpt directly states the desert region has an over-exploited aquifer fed by the Colorado River with serious water shortages.
-- **Data:** Academic analysis of the Constellation Brands brewery case frames Mexicali as a region threatened by scarcity and overexploitation of water sources.
-  - **Source:** https://www.scielo.org.mx/scielo.php?pid=S0187-73722020000100116&script=sci_arttext&tlng=en — Elements of Socio-Environmental Conflict: The Constellation Brands Brewery and Mexicali Water
-  - **Excerpt:** “This study aims to determine the extent to which such notions are incorporated into a region threatened by scarcity and overexploitation of water sources.”
-  - **Validation:** ✅ MATCH FOUND (exact)
-  - **Claim support:** ✅ YES — Excerpt explicitly frames the region as threatened by scarcity and overexploitation of water sources.
-- **Data:** Regional academic data on Baja California state (where Mexicali is located) shows a large share of its registered aquifers have no water availability, are overexploited, have saline intrusion, or contain brackish water.
-  - **Source:** https://iwaponline.com/ws/article/21/6/2760/76153/Estimating-the-future-hydric-needs-of-Baja — Estimating the future hydric needs of Baja California, Mexico. Assessment of scenarios to stop being a region with water scarcity
-  - **Excerpt:** “Water extraction from aquifers is also compromised, from 48 aquifers registered in BC, in 15 there is no water availability, 11 are overexploited, 7 have saline intrusion and in 3 the water is brackish (SINA 2018).”
+### 💧 Dimension: Water Stress  ·  Sources: 3 distinct
+- **Data:** Baja California (the state containing Mexicali) is classified as a 'water scarcity' region with several areas inside the state rated as 'extremely high water risk' by the WRI Aqueduct tool.
+  - **Source:** https://iwaponline.com/ws/article/21/6/2760/76153/Estimating-the-future-hydric-needs-of-Baja — Estimating the future hydric needs of Baja California, Mexico. Assessment of scenarios to stop being a region with water scarcity | Water Supply | IWA Publishing
+  - **Excerpt:** “According with the National Water Commission of Mexico (EAM 2018), the water availability per capita in BC in 2017 was 849 m3 year−1, which allows it to be classified, using FAO (2014) indicators, as a 'water scarcity' region, and several areas inside BC as 'extremely high water risk' (WRI-AQUEDUCT 2019).”
   - **Validation:** ❌ FAILED VALIDATION: source blocked by bot protection
     - _bot protection_
-
-### ⚠️ Dimension: Incidents  ·  Sources: 2 distinct across 4 articles
-- **Data:** Since 2017 the activist group Mexicali Resiste has led sustained opposition to a major beverage company building a large brewery that draws heavily on local water in a water-scarce region.
-  - **Source:** https://www.prnewswire.com/news-releases/mexicali-resiste-activist-vs-constellation-brands-activists-demand-water-rights-and-freedom-301347825.html — Mexicali Resiste Activist VS. Constellation Brands: Activists demand WATER RIGHTS and FREEDOM
-  - **Excerpt:** “Since January 2017, Mexicali Resiste has opposed plans by Constellation Brands, a U.S. based alcohol corporation, to build a billion-dollar brewery that will use local water to make beer for American consumers in a region already experiencing severe water scarcity.”
-  - **Validation:** ✅ MATCH FOUND (fuzzy 100%)
-  - **Claim support:** ✅ YES — Excerpt matches the claim about Mexicali Resiste opposing Constellation Brands' brewery since 2017 due to water scarcity.
-- **Data:** In 2020, a public consultation called by the Mexican President on the future of the Constellation Brands operation in Mexicali resulted in a 'No' vote, halting the brewery's operations.
-  - **Source:** https://www.prnewswire.com/news-releases/mexicali-resiste-activist-vs-constellation-brands-activists-demand-water-rights-and-freedom-301347825.html — Mexicali Resiste Activist VS. Constellation Brands: Activists demand WATER RIGHTS and FREEDOM
-  - **Excerpt:** “In 2020 the Mexican President, Andres Manuel Lopez Obrador called for a "Consultation" for the people of Mexicali to vote to determine the future of Constellation Brands continued operation which resulted in a NO vote, halting the operation of Constellation Brands.”
+- **Data:** Baja California is among the Mexican states with the greatest exposure to high water stress (Aqueduct scores of 70 or higher on a 1-100 scale) in the current decade (2020-2030).
+  - **Source:** https://www.spglobal.com/sustainable1/en/insights/special-editorial/more-mexican-states-could-face-water-stress-by-2050 — More Mexican states could face water stress by 2050 | S&P Global
+  - **Excerpt:** “The data shows that in this decade (2020-2030), 11 of Mexico's 32 states face high water stress (with scores of 70 or higher). Of these 11, the states with the greatest exposure are Baja California and Baja California Sur in the north, Aguascalientes in the Bajío region in the central part of the country, and Mexico City.”
+  - **Validation:** ❌ FAILED VALIDATION: source blocked by bot protection
+    - _bot protection_
+- **Data:** Baja California is highlighted as one of the most concerning cases of water scarcity in Mexico, with a regional dryness index reaching 4.67 out of 5 in 2025, near its highest recorded level.
+  - **Source:** https://mexicobusiness.news/sustainability/news/water-stress-strategic-risk-business-mexico — Water Stress: Strategic Risk for Business in Mexico
+  - **Excerpt:** “According to the State Citizen Water Commission, 2025 was one of the driest years for the region since 1950, reaching an index of 4.67 out of 5, placing it near its highest recorded level.”
   - **Validation:** ✅ MATCH FOUND (exact)
-  - **Claim support:** ✅ YES — Excerpt confirms the 2020 presidential consultation, the No vote, and the halting of operations.
-- **Data:** Local outrage over water allocation to the brewery peaked in 2017 when more than 12,000 Mexicali residents took to the streets in mass protest.
+  - **Claim support:** ✅ YES — Excerpt confirms the 4.67/5 dryness index and near-record status as claimed.
+
+### ⚠️ Dimension: Incidents  ·  Sources: 3 distinct
+- **Data:** Social protests against the establishment of the Constellation Brands brewery in Mexicali began after the project's announcement in April 2015, centered on regional water scarcity and overexploitation, and lack of transparency around building an aqueduct for the brewery's exclusive use.
+  - **Source:** https://www.scielo.org.mx/scielo.php?pid=S0187-73722020000100116&script=sci_arttext&tlng=en — Elements of Socio-Environmental Conflict: The Constellation Brands Brewery and Mexicali Water
+  - **Excerpt:** “Since the announcement of the intention to build the brewery in Mexicali in April 2015, a series of social protests were unleashed in the municipality against the project itself and the lack of transparency implemented by the state governments' promoters when explaining the use of public resources to construct an aqueduct for the brewery's sole use.”
+  - **Validation:** ✅ MATCH FOUND (exact)
+  - **Claim support:** ✅ YES — Excerpt supports timing, cause (water concerns/transparency), and aqueduct issue.
+- **Data:** In 2017, more than 12,000 Mexicali residents took to the streets to protest the brewery project, and some of the protesters were subsequently charged with offenses related to the demonstrations.
   - **Source:** https://www.prnewswire.com/news-releases/mexicali-resiste-vs-constellation-brands-activists-demand-water-rights-and-freedom-301423490.html — Mexicali Resiste VS. Constellation Brands: Activists Demand WATER RIGHTS and FREEDOM
-  - **Excerpt:** “Local outrage peaked in 2017, when over 12,000 residents of Mexicali took to the streets, ...”
+  - **Excerpt:** “Local outrage peaked in 2017, when over 12,000 residents of Mexicali took to the streets, including the members of Mexicali Resiste who now stand trial.”
   - **Validation:** ✅ MATCH FOUND (fuzzy 99%)
-  - **Claim support:** ✅ YES — Excerpt confirms over 12,000 residents protesting in 2017.
-- **Data:** An NPR report documented ongoing clashes between local activists/farmers and the brewery over water rights, with residents demanding to know why scarce water was being allocated to beer production for export.
-  - **Source:** https://www.npr.org/sections/thesalt/2018/03/26/596448290/as-big-beer-moves-in-activists-in-mexicali-fight-to-keep-their-water — As Big Beer Moves In, Activists In Mexicali Fight To Keep Their Water
-  - **Excerpt:** “Activists, local farmers, and many others are demanding answers as to why, with such a scarcity of water, the government is giving Constellation Brands millions of gallons of it to make beer for American consumers.”
+    - _matched on page: “local outrage peaked in 2017, when over 12,000 residents of mexicali took to the streets , including the members of mexicali resiste who now stand trial.”_
+  - **Claim support:** ⚠️ PARTIAL — Excerpt confirms 12,000+ protesters and that some now 'stand trial', but doesn't specify they were charged with offenses related to the demonstrations.
+- **Data:** In 2018, conflict escalated when the company attempted to build an aqueduct on residents' private property, and demonstrators had stopped trucks traveling to the brewery and occupied the Baja California Congress on multiple occasions.
+  - **Source:** https://dialogue.earth/en/water/26653-water-or-beer/ — Water or beer? | Dialogue Earth
+  - **Excerpt:** “In 2018, citizens were enraged when the company tried to build an aqueduct on residents’ private property, inflaming the conflict.”
   - **Validation:** ✅ MATCH FOUND (exact)
-  - **Claim support:** ⚠️ PARTIAL — Excerpt supports residents demanding answers about water use for beer, but does not mention 'ongoing clashes' or NPR as the source.
-- **Data:** Water rights activists connected to the Mexicali water conflicts faced later legal reprisals, including reopened criminal charges in 2021 tied to earlier protests.
-  - **Source:** https://www.prnewswire.com/news-releases/mexicali-resiste-activist-vs-constellation-brands-activists-continue-to-demand-water-rights-and-freedom-301417829.html — Mexicali Resiste Activist VS. Constellation Brands: Activists continue to demand WATER RIGHTS and FREEDOM
-  - **Excerpt:** “In 2017 the office of the State Attorney of Baja California determined that the current accusations did not deem criminal proceedings. However, in 2021 the congress of the state of Baja California suddenly decided to reopen the case file and has scheduled and rescheduled hearings since July, to attempt to rescinding previous resolutions and again present accu”
-  - **Validation:** ✅ MATCH FOUND (exact)
-  - **Claim support:** ✅ YES — Excerpt confirms the 2017 dismissal and 2021 reopening of the case with rescheduled hearings to reassert accusations.
+  - **Claim support:** ⚠️ PARTIAL — Excerpt only supports the aqueduct-on-private-property conflict in 2018; it does not mention stopping trucks or occupying Congress multiple times.
 
-### 📋 Dimension: Regulations  ·  Sources: 3 distinct across 4 articles
-- **Data:** Industrial and municipal wastewater discharges into national waters/bodies in Mexico (including Mexicali) are governed by the Official Mexican Standard NOM-001-SEMARNAT-2021, which sets maximum permissible contaminant limits to protect national water bodies, replacing/updating the prior 1996 version.
-  - **Source:** https://www.dof.gob.mx/nota_detalle.php?codigo=5645374&fecha=11%2F03%2F2022 — NOM-001-Semarnat-2021
-  - **Excerpt:** “La Norma Oficial Mexicana tiene por objeto establecer los límites permisibles de contaminantes en las descargas de aguas residuales, con el fin de proteger, conservar y mejorar la calidad de las aguas y bienes nacionales.”
-  - **Validation:** ✅ MATCH FOUND (exact)
-  - **Claim support:** ⚠️ PARTIAL — Excerpt supports the standard's purpose but does not mention it replacing a 1996 version or specifically applying to Mexicali.
-- **Data:** The new NOM-001-SEMARNAT-2021 standard came into force in Mexico on March 11, 2023, one year after publication, with general permissible discharge limits enforceable from April 3, 2023, and PROFEPA, CONAGUA, or a Verification Unit can issue conformity opinions.
-  - **Source:** https://www.perezllorca.com/en-mx/news/legal-knowledge/gc-alert-norma-oficial-mexicana-nom-001-semarnat-2021-que-establece-los-limites-permisibles-de-contaminantes-en-las-descargas-de-aguas-residuales-en-los-cuerpos-receptores-propiedad-de-la-nacion/ — GC Alert | Official Mexican standard NOM-001-SEMARNAT-2021
-  - **Excerpt:** “The entry into force of the new NOM-001 will be on March 11, 2023, that is, 365 days after its publication in the Official Gazette of the Federation. In addition to the above, the general permissible limits will come into force on April 3, 2023.”
-  - **Validation:** ✅ MATCH FOUND (exact)
-  - **Claim support:** ⚠️ PARTIAL — Excerpt confirms the March 11, 2023 and April 3, 2023 dates but does not mention PROFEPA, CONAGUA, or Verification Units issuing conformity opinions.
-- **Data:** Industrial dischargers must obtain and pay for a wastewater discharge permit processed online through CONAGUA's water portal (PUUC), along with related permits for federal land occupation and hydraulic infrastructure works.
-  - **Source:** https://agua.org.mx/wp-content/uploads/2022/03/Lineamientos-para-cumplir-NOM-001-SEMARNAT.pdf — Lineamientos para cumplir NOM-001-SEMARNAT
-  - **Excerpt:** “Junto con este permiso se solicitarán los trámites CONAGUA-01-006 Concesión · para la ocupación de terrenos federales cuya administración competa a Conagua · y CONAGUA-02-002 Permiso para realizar obras de infraestructura hidráulica · (competencia de la Subdirección General Técnica).”
+### 📋 Dimension: Regulations  ·  Sources: 3 distinct
+- **Data:** Under Mexico's federal Ley de Aguas Nacionales, any authorization, permit, concession, or assignment for water use must prioritize human and domestic water consumption, and the water authority can reduce or cancel a concessioned water volume if there is a risk to human/domestic water availability.
+  - **Source:** https://www.ordenjuridico.gob.mx/Documentos/Federal/html/wo83103.html — ley de aguas nacionales
+  - **Excerpt:** “Cualquier autorización, permiso, concesión, asignación o prórroga que se otorgue conforme a la presente ley debe priorizar el consumo humano y doméstico del agua. ... En caso de que exista riesgo de disponibilidad de agua para consumo humano y doméstico, “la Autoridad del Agua” disminuirá o cancelará el volumen de agua concesionada.”
   - **Validation:** ❌ FAILED VALIDATION: excerpt not found in source content
-    - _best fuzzy score 30% < threshold 88%_
-- **Data:** CONAGUA (Comisión Nacional del Agua), acting under authority granted by the Ley de Aguas Nacionales, is the federal body responsible for issuing and overseeing water-related Official Mexican Standards (NOMs) that apply nationally, including in Baja California/Mexicali.
-  - **Source:** https://dof.gob.mx/normasOficiales/4647/semarnat/semarnat.htm — NORMA Oficial Mexicana NOM-001-CONAGUA-2011
-  - **Excerpt:** “JUAN RAFAEL ELVIRA QUESADA, Secretario de Medio Ambiente y Recursos Naturales, con fundamento en lo dispuesto en los artículos 32 Bis fracción IV de la Ley Orgánica de la Administración Pública Federal; 3 fracción XXXVIII, 8 fracción V, 9 fracciones IX y XXXI, 100 de la Ley de Aguas Nacionales”
+    - _best fuzzy score 87% < threshold 88%_
+- **Data:** NOM-001-SEMARNAT-2021 sets mandatory permissible contaminant limits for wastewater discharges into nationally owned receiving bodies, applying to industrial and other dischargers, and became obligatory with a gradual compliance timeline.
+  - **Source:** https://www.gob.mx/semarnat/prensa/se-publica-nom-001-semarnat-2021-que-establece-limites-de-contaminantes-en-descargas-de-aguas-residuales — Se publica NOM-001-SEMARNAT-2021, que establece límites de contaminantes en descargas de aguas residuales | SEMARNAT
+  - **Excerpt:** “La NOM-001-SEMARNAT-2021 será de observancia obligatoria para los responsables de las descargas de aguas residuales en cualquier tipo de cuerpo receptor propiedad de la Nación y tendrá un cumplimiento y vigencia gradual, establecida en sus artículos transitorios, entrando en vigor a los 365 días naturales posteriores a su publicación en el Diario Oficial de la Federación.”
+  - **Validation:** ❌ FAILED VALIDATION: excerpt not found in source content
+    - _best fuzzy score 50% < threshold 88%_
+- **Data:** Mexico's water law reform centralizes in CONAGUA (the National Water Commission) the exclusive authority to grant, supervise, modify, revoke, and reassign water concessions and permits, meaning no private company can manage or negotiate water rights without government authorization.
+  - **Source:** https://lexlatin.com/reportajes/ley-general-de-aguas-mexico-mineria-agroindustria-parques-industriales — LexLatin | ¿Qué dice la Ley General de Aguas y cómo impacta a la minería, la agroindustria y a los parques industriales en México?
+  - **Excerpt:** “Además, la norma centraliza en la Comisión Nacional del Agua (Conagua) la facultad exclusiva para otorgar, supervisar, modificar, revocar y reasignar concesiones y permisos. En la práctica, ninguna empresa privada o actor puede administrar o negociar derechos de agua sin autorización gubernamental.”
   - **Validation:** ✅ MATCH FOUND (exact)
-  - **Claim support:** ❌ NO — Excerpt shows the standard was issued by the Secretary of Environment (SEMARNAT) citing the Ley de Aguas Nacionales, not by CONAGUA as claimed.
+  - **Claim support:** ✅ YES — Excerpt directly matches the claim about CONAGUA's centralized authority and private companies needing government authorization.
 
 ---
 
 ## 📍 Location: Plant in Monterrey, Mexico
 
 ### 💧 Dimension: Water Stress  ·  Sources: 3 distinct
-- **Data:** Nuevo León (the state containing Monterrey) is projected by WRI Aqueduct to reach medium-high water depletion (20-40%) by 2030, part of a broader trend where nearly half of Mexico's states face severe water scarcity.
-  - **Source:** https://mexiconewsdaily.com/news/14-mexican-states-could-face-extreme-water-stress-2030/ — 14 Mexican states could face extreme water stress by 2030
-  - **Excerpt:** “Additionally, six states — Jalisco, México state, Michoacán, Puebla, Tamaulipas and Tlaxcala — are expected to experience high water depletion, ranging between 40% and 80%, while Nuevo León could reach a medium-high level of depletion, between 20% and 40%.”
+- **Data:** The watershed supplying the Monterrey Metropolitan Area has extremely low per-capita water availability, comparable to some of the most water-poor countries in the world, and was projected to worsen by 2020.
+  - **Source:** https://en.wikipedia.org/wiki/Urban_water_management_in_Monterrey — Urban water management in Monterrey
+  - **Excerpt:** “Taking discharge and aquifer recharge, current population and average hydrology into account, the watershed possesses a water availability of 484 m3 per inhabitant per year and would be reduced to 230 m3 per inhabitant per year by the year 2020.”
+  - **Validation:** ✅ MATCH FOUND (fuzzy 99%)
+    - _matched on page: “taking discharge and aquifer recharge, current population and average hydrology into account, the watershed possesses a water availability of 484 m 3 per inhabitant per year and would be reduced to 230 m 3 per inhabitant per year by the year 2020.”_
+  - **Claim support:** ⚠️ PARTIAL — Excerpt supports the low per-capita figures and 2020 projection but does not compare Monterrey's water scarcity to the most water-poor countries in the world.
+- **Data:** The reservoir system that supplies Monterrey fell below 40% capacity in 2022, forcing daily water cuts for both residential and industrial users in Nuevo León.
+  - **Source:** https://mexicobusiness.news/infrastructure/news/water-availability-necessary-support-industrial-activity — Water Availability Necessary to Support Industrial Activity
+  - **Excerpt:** “Industrial operations increasingly face restrictions, particularly in northern states like Nuevo Leon, where the reservoir system supplying Monterrey fell below 40% capacity in 2022, leading to daily water cuts in both residential and industrial areas.”
   - **Validation:** ✅ MATCH FOUND (exact)
-  - **Claim support:** ⚠️ PARTIAL — Excerpt supports Nuevo León's 20-40% depletion projection but does not mention 'nearly half of Mexico's states facing severe water scarcity.'
-- **Data:** Mexico is one of only four countries (along with India, Egypt and Turkey) that will account for over half of the global GDP exposed to high water stress by 2050, according to WRI Aqueduct data.
-  - **Source:** https://www.wri.org/insights/highest-water-stressed-countries — 25 Countries, Housing One-Quarter of the Population, Face Extremely High Water Stress
-  - **Excerpt:** “Just four countries — India, Mexico, Egypt and Turkey — account for over half of the exposed GDP in 2050.”
-  - **Validation:** ✅ MATCH FOUND (exact)
-  - **Claim support:** ✅ YES — Excerpt confirms the same four countries account for over half of exposed GDP by 2050.
-- **Data:** Monterrey's own reservoir system (Cerro Prieto and La Boca dams) had reached historically low levels, with Cerro Prieto dropping to less than 1% capacity in mid-2022, illustrating the severity of physical water stress at the plant location.
-  - **Source:** https://dialogue.earth/en/uncategorized/60151-drought-mexico-water-shortage-social-unrest/ — Drought in northern Mexico brings water shortages and social unrest
-  - **Excerpt:** “In mid-July, Cerro Prieto effectively ran dry, dropping to less than 1% of its capacity, thus failing to supply water to the metropolitan area for the first time since the dam was inaugurated in 1984.”
-  - **Validation:** ✅ MATCH FOUND (fuzzy 100%)
-  - **Claim support:** ⚠️ PARTIAL — Excerpt only discusses Cerro Prieto dropping below 1%; La Boca dam is not mentioned.
-
-### ⚠️ Dimension: Incidents  ·  Sources: 5 distinct
-- **Data:** In 2022, Monterrey suffered its worst modern-day water crisis, with dams dropping to critical lows, millions losing tap-water access, and protests erupting across the metro area.
+  - **Claim support:** ✅ YES — Excerpt directly supports the reservoir dropping below 40% in 2022 and causing daily residential/industrial water cuts in Nuevo León.
+- **Data:** In the 2022 crisis, the Cerro Prieto dam that long supplied the Monterrey metro area dropped below 1% of capacity due to drought, demand, and aging infrastructure.
   - **Source:** https://mexiconewsdaily.com/water-in-mexico/mexican-students-turn-water-crisis-into-global-innovation-compete-for-prestigious-sustainability-prize/ — Water Crisis in Monterrey: A Student's Journey - Mexico News Daily
-  - **Excerpt:** “In 2022, Monterrey experienced its worst modern-day water crisis. A perfect storm of drought, demand and aging infrastructure caused dams to dry up — Cerro Prieto, which long supplied the Monterrey metro area with water, dropped below 1% capacity by July.”
-  - **Validation:** ✅ MATCH FOUND (fuzzy 100%)
-  - **Claim support:** ⚠️ PARTIAL — Excerpt confirms dams drying and Cerro Prieto's drop but does not mention millions losing tap-water access or protests.
-- **Data:** Protests escalated in mid-July 2022 when residents demonstrated against the water utility diverting supply toward the city, and pipes were set on fire to halt government water-diversion plans.
-  - **Source:** https://dialogue.earth/en/uncategorized/60151-drought-mexico-water-shortage-social-unrest/ — Drought in northern Mexico brings water shortages and social unrest
-  - **Excerpt:** “Protests escalated in mid-July, when residents demonstrated against the use of pipelines by SADM, the water utility company of Monterrey, to divert as much as 500 litres of water per second towards the city.”
+  - **Excerpt:** “A perfect storm of drought, demand and aging infrastructure caused dams to dry up — Cerro Prieto, which long supplied the Monterrey metro area with water, dropped below 1% capacity by July.”
   - **Validation:** ✅ MATCH FOUND (exact)
-  - **Claim support:** ⚠️ PARTIAL — Excerpt confirms protests against water diversion but does not mention pipes being set on fire.
-- **Data:** Residents joined protests at bottling plants of a major drinks firm, angered that industrial water extraction continued near their homes even as household taps ran dry.
+  - **Claim support:** ✅ YES — Excerpt directly supports Cerro Prieto dropping below 1% capacity due to drought, demand, and aging infrastructure.
+
+### ⚠️ Dimension: Incidents  ·  Sources: 4 distinct
+- **Data:** During the 2022 drought, residents angry over water concessions to businesses, including beverage firms, joined repeated protests at bottling plants near Monterrey.
   - **Source:** https://www.preventionweb.net/news/taps-run-dry-mexican-drought-fuels-anger-over-water-inequality — As taps run dry, Mexican drought fuels anger over water inequality
   - **Excerpt:** “Noyola said it felt bitterly ironic to have to buy water from a leading drinks firm that extracts water from a well close to his home, and he has joined a number of protests at bottling plants since rationing began earlier this year.”
   - **Validation:** ✅ MATCH FOUND (exact)
-  - **Claim support:** ✅ YES — Excerpt confirms resident joined protests at bottling plants due to nearby extraction while facing rationing.
-- **Data:** The 2022 crisis sparked widespread civil unrest, with frustrated residents blocking major highways in protest and people in other parts of the state setting fire to pipes meant to divert emergency water flows to the city.
+  - **Claim support:** ✅ YES — Excerpt supports anger over water being extracted by a drinks firm and joining protests at bottling plants.
+- **Data:** The 2022 Monterrey water crisis led to major public unrest, including highway blockades and residents in other parts of the state setting fire to pipes diverting emergency water to the city.
   - **Source:** https://mexicodailypost.com/2022/07/23/monterrey-water-crisis-the-city-is-on-an-unsustainable-path/ — Monterrey water crisis: the city is on an unsustainable path - Monterrey Daily Post
   - **Excerpt:** “The crisis has sparked widespread upheaval, with frustrated residents blocking major highways in protest and people in other parts of the state setting fire to pipes that were supposed to divert emergency flows to the city.”
   - **Validation:** ✅ MATCH FOUND (exact)
-  - **Claim support:** ✅ YES — Excerpt matches the claim about highway blockades and pipe burning in other parts of the state.
-- **Data:** Authorities actively enforced against illegal water tapping ('water theft') by businesses in Monterrey during the crisis, indicating both the severity of shortages and active regulatory monitoring of usage.
+  - **Claim support:** ✅ YES — Excerpt supports highway blockades and residents setting fire to pipes diverting emergency water.
+- **Data:** The 2022 climate-fueled water crisis in Monterrey, Mexico's industrial capital, left residents without reliable tap water and led some to illegally tap into the water network.
   - **Source:** https://www.bloomberg.com/news/features/2022-07-26/taps-run-dry-heat-and-drought-ravage-monterrey-mexico — Mexico Drought: Heat and Water Crisis Ravage Monterrey - Bloomberg
-  - **Excerpt:** “Gonzalez, who is tasked with tracking down water theft in Mexico's industrial capital, had inspected the bar days earlier, found they were illegally piping water from the network and shut off their supply.”
+  - **Excerpt:** “A climate-fueled water crisis in the country's industrial capital leaves residents thirsty and people illegally tapping pipes.”
   - **Validation:** ❌ FAILED VALIDATION: source blocked by bot protection
     - _HTTP 403_
+- **Data:** Monterrey experienced its worst modern-day water crisis in 2022, during which millions lost access to tap water and protests erupted.
+  - **Source:** https://mexiconewsdaily.com/water-in-mexico/mexican-students-turn-water-crisis-into-global-innovation-compete-for-prestigious-sustainability-prize/ — Water Crisis in Monterrey: A Student's Journey - Mexico News Daily
+  - **Excerpt:** “In 2022, Monterrey experienced its worst modern-day water crisis.”
+  - **Validation:** ✅ MATCH FOUND (fuzzy 98%)
+    - _matched on page: “in 2022, monterrey experienced its worst modern-day water crisis .”_
+  - **Claim support:** ⚠️ PARTIAL — Excerpt confirms it was the worst modern-day water crisis but does not mention millions losing tap water access or protests erupting.
 
-### 📋 Dimension: Regulations  ·  Sources: 4 distinct
-- **Data:** In December 2025, Mexico's Senate approved a new General Water Law and amendments to the National Water Law, significantly overhauling the regulatory framework for industrial and other water use, including restrictions preventing concession holders from changing the assigned use (e.g. agricultural to industrial) of their water rights.
+### 📋 Dimension: Regulations  ·  Sources: 3 distinct
+- **Data:** Mexico's Senate approved a new General Water Law and amendments to the National Water Law in December 2025, significantly overhauling the regulatory framework governing water resources, including industrial concessions.
   - **Source:** https://www.lexology.com/library/detail.aspx?g=737edf8d-f891-4376-ad20-b50f425d1e98 — Mexico Approves New General Water Law and Amends National Water Law - Lexology
   - **Excerpt:** “The Mexican Senate on Dec. 5, 2025, approved the General Water Law (Ley General de Aguas) and amendments to the National Water Law (Ley de Aguas Nacionales), marking a significant shift in the regulatory framework governing water resources in Mexico.”
   - **Validation:** ❌ FAILED VALIDATION: source blocked by bot protection
     - _bot protection_
-- **Data:** The reform imposes new sanctions and criminal offenses for water misuse, with fines of up to approximately MX$5,657,000 for severe violations, and also bars any transfer of water concessions between private parties, centralizing reassignment authority exclusively with CONAGUA.
-  - **Source:** https://www.hklaw.com/en/insights/publications/2025/12/mexico-aprueba-la-nueva-ley-general-de-aguas-y-reformas — Mexico Approves New General Water Law and Amends National Water Law | Insights | Holland & Knight
-  - **Excerpt:** “Sanctions and Water Crimes: The reform establishes new criminal offenses related to water misuse and imposes fines of up to 50,000 Units of Measurement and Update (Unidades de Medida y Actualización or UMA) (approximately MX$5,657,000) for severe violations.”
-  - **Validation:** ✅ MATCH FOUND (fuzzy 100%)
-  - **Claim support:** ⚠️ PARTIAL — Excerpt confirms fines for water misuse but does not mention the ban on transferring water concessions or centralizing reassignment authority with CONAGUA.
-- **Data:** Under the reformed water law, in situations of scarcity, emergency, or hydrological imbalance, CONAGUA is empowered to reduce or cancel water concessions granted to industries without limitation, reflecting a strong regulatory lever over industrial water use in stressed regions like Monterrey.
-  - **Source:** https://aln.com.mx/en/new-general-water-law-and-reform-to-the-national-water-law/ — Nueva Ley General de Aguas y Reforma a la Ley de Aguas Nacionales - ALN
+- **Data:** Under the reformed law, CONAGUA has the authority to reduce or cancel industrial water concessions without limitation of amount during periods of scarcity, emergency, or hydrological imbalance.
+  - **Source:** https://aln.com.mx/en/new-general-water-law-and-reform-to-the-national-water-law/ — Nueva Ley General de Aguas y Reforma a la Ley de Aguas Nacionales
   - **Excerpt:** “In situations of scarcity, emergency or hydrological imbalance, CONAGUA is empowered to reduce or cancel water concessions granted to industries without limitation of amount.”
   - **Validation:** ✅ MATCH FOUND (exact)
-  - **Claim support:** ✅ YES — Excerpt directly supports CONAGUA's power to reduce or cancel concessions without limitation during scarcity or emergency.
-- **Data:** Even prior to the 2025 reform, Mexico's drought-emergency measures under CONAGUA allowed authorities to order holders of agricultural or industrial water concessions to permit third-party use during severe drought conditions, as invoked during the 2022 Monterrey crisis.
-  - **Source:** https://newsinfo.inquirer.net/1627772/mexico-declares-drought-emergency/amp — Mexico declares drought emergency
-  - **Excerpt:** “Among the measures, holders of water concessions for agricultural or industrial use can be ordered to allow their use by third parties.”
-  - **Validation:** ❌ FAILED VALIDATION: source blocked by bot protection
-    - _bot protection_
+  - **Claim support:** ✅ YES — Excerpt directly supports CONAGUA's authority to reduce or cancel concessions without limitation during scarcity, emergency, or imbalance.
+- **Data:** CONAGUA assesses water availability before granting industrial concessions and will not grant a concession if the site is located in an overexploited aquifer.
+  - **Source:** https://mexiconewsdaily.com/water-in-mexico/mexicos-national-water-law-and-industry/ — The facts on industrial water usage in Mexico - Mexico News Daily
+  - **Excerpt:** “María Teresa Gutiérrez, director of Agua.org.mx, explained that Conagua assesses water availability before granting permits. "If the site is located in an overexploited aquifer, the concession is not granted," she said.”
+  - **Validation:** ✅ MATCH FOUND (exact)
+  - **Claim support:** ✅ YES — Excerpt confirms CONAGUA assesses water availability and denies concessions in overexploited aquifers.
 
 ---
 
 ## 📍 Location: Factory in Chandler, Arizona, USA
 
-### 💧 Dimension: Water Stress  ·  Sources: 3 distinct
-- **Data:** Arizona is classified by WRI's Aqueduct Water Risk Atlas as being in the 'high stress' category (one tier below the most severe 'extremely high' category occupied by New Mexico).
-  - **Source:** https://www.washingtonpost.com/climate-environment/2019/08/06/mapping-strain-our-water/ — Mapping the strain on our water supply - The Washington Post
-  - **Excerpt:** “Neighboring Arizona was among four states in the somewhat-less-perilous "high stress" category.”
-  - **Validation:** ❌ FAILED VALIDATION: source unreachable
-    - _ReadError: _
-- **Data:** A Penn Water Center summary of WRI Aqueduct state-level data confirms that water stress is high in Arizona (along with California, Colorado, and Nebraska).
-  - **Source:** https://watercenter.sas.upenn.edu/splash/water-stress-water-scarcity — From Water Stress to Water Scarcity | The Water Center at Penn
-  - **Excerpt:** “The water stress is high in California, Arizona, Colorado and Nebraska.”
-  - **Validation:** ❌ FAILED VALIDATION: source blocked by bot protection
-    - _bot protection_
-- **Data:** On-the-ground reporting found direct evidence of extreme water stress in Arizona, including in Maricopa County (where Chandler is located), with groundwater wells running dry for residents and aquifers dropping rapidly.
-  - **Source:** https://www.hcn.org/articles/water-arizona-faces-a-reckoning-over-water/ — Arizona faces a reckoning over water - High Country News
-  - **Excerpt:** “During a month of frontline reporting in Arizona, Circle of Blue encountered unmistakable signals of extreme water stress: Wells have run dry for thousands of residents who rely on groundwater for drinking, from Cochise County in the southeast, to Maricopa County north of Phoenix, to the Chino Valley north of Prescott.”
+### 💧 Dimension: Water Stress  ·  Sources: 2 distinct
+- **Data:** Simone Kjolsrud, Chandler's water resources advisor, said that many cities in Central Arizona will face a cut to their water supply starting in 2027.
+  - **Source:** https://www.chandlernews.com/santan/news/chandler-begins-girding-for-cuts-in-water-supply/article_dfa60e65-258f-4d48-bb04-3bbb7b6aee7c.html — Chandler begins girding for cuts in water supply | News | chandlernews.com
+  - **Excerpt:** “a lot of cities in Central Arizona will be taking a cut starting in 2027,” said Simone Kjolsrud”
   - **Validation:** ✅ MATCH FOUND (exact)
-  - **Claim support:** ⚠️ PARTIAL — The excerpt supports wells running dry in Maricopa County but does not mention aquifers dropping rapidly.
+  - **Claim support:** ⚠️ PARTIAL — Excerpt supports the quote but does not identify Kjolsrud as Chandler's water resources advisor.
+- **Data:** Water supply in the Phoenix metropolitan region, which encompasses the Chandler area, depends on mountain snowmelt rather than direct rainfall, making it climate-sensitive.
+  - **Source:** https://www.phoenix.gov/administration/departments/waterservices/supply-conservation/drought/drought-shortage-operations.html — Phoenix Water Services Drought Management | City of Phoenix
+  - **Excerpt:** “Our water supply doesn’t rely on rainfall, rather snow melt, from the mountains north and east of the Valley.”
+  - **Validation:** ✅ MATCH FOUND (exact)
+  - **Claim support:** ⚠️ PARTIAL — Excerpt mentions 'the Valley' but does not explicitly identify it as the Phoenix metropolitan region encompassing Chandler.
 
 ### ⚠️ Dimension: Incidents  ·  Sources: 2 distinct
-- **Data:** A coalition of environmental and labor groups (CHIPS Communities United) has publicly raised concerns that federal environmental reviews for semiconductor projects, including Intel's Ocotillo factory in Chandler, failed to adequately address risks to Arizona's water supply.
-  - **Source:** https://inbusinessphx.com/technology-innovation/arizonas-semiconductor-boom-sparks-environmental-concerns — Arizona's Semiconductor Boom Sparks Environmental Concerns - Greater Phoenix In Business Magazine
-  - **Excerpt:** “They argue the Commerce Department’s “findings of no significant impact” for these plants, which include TSMC’s facility in Phoenix and Intel’s Ocotillo factory in Chandler, fail to address potential risks to Arizona’s water supply and air quality.”
+- **Data:** Chandler residents have been paying more than $1.5 million per year to an East Valley water district amid a dispute over water services in the city.
+  - **Source:** https://ktar.com/arizona-water-news/chandler-water-issues-2025/5658271/ — Chandler water issues 2025: Mayor concerned about RWCD
+  - **Excerpt:** “Chandler residents have been paying an East Valley water district over $1.5 million a year”
   - **Validation:** ✅ MATCH FOUND (exact)
-  - **Claim support:** ✅ YES — The excerpt matches the claim about the groups' concerns regarding federal reviews for TSMC's Phoenix and Intel's Ocotillo (Chandler) plants.
-- **Data:** Amid a regionwide water drought, Chandler has had to expand its well system, and city leaders have engaged federal water managers over proposed cuts to Arizona's Colorado River supply, citing risk to the local technology manufacturing industry.
-  - **Source:** https://www.kjzz.org/politics/2026-03-10/chandler-expanding-well-system-amid-regionwide-water-drought — Chandler expanding well system amid regionwide water drought
-  - **Excerpt:** “Hartke recently co-signed a letter asking federal water managers to reconsider those proposed cuts to Arizona’s Colorado River supply.”
+  - **Claim support:** ✅ YES — Excerpt directly matches the claim about Chandler residents paying over $1.5 million a year to an East Valley water district.
+- **Data:** A proposed AI data center project in Chandler, Arizona has been described as controversial due to concerns over its water usage.
+  - **Source:** https://www.phoenixnewtimes.com/news/how-much-water-will-chandlers-data-center-project-use-40627750/ — How much water will Chandler's data center project use?
+  - **Excerpt:** “Those pushing for a controversial new AI data center in Chandler”
   - **Validation:** ✅ MATCH FOUND (exact)
-  - **Claim support:** ⚠️ PARTIAL — The excerpt supports city leaders engaging federal water managers over Colorado River cuts, but does not mention Chandler expanding its well system or citing risk to the tech manufacturing industry.
-- **Data:** Industry and city officials have publicly framed water security for Chandler's chipmaking sector as a matter of national importance, reflecting ongoing tension around water allocation for the area's semiconductor manufacturers.
-  - **Source:** https://www.kjzz.org/politics/2026-03-10/chandler-expanding-well-system-amid-regionwide-water-drought — Chandler expanding well system amid regionwide water drought
-  - **Excerpt:** “Stanton highlighted the role of those companies in the nation’s economy and military and said “water security in Arizona and in Chandler is national security.””
-  - **Validation:** ✅ MATCH FOUND (exact)
-  - **Claim support:** ⚠️ PARTIAL — The excerpt shows only one official's quote about 'national security,' not a broader industry-and-city framing, and does not mention 'ongoing tension around water allocation.'
+  - **Claim support:** ✅ YES — Excerpt confirms the AI data center in Chandler is described as controversial, matching the claim.
 
-### 📋 Dimension: Regulations  ·  Sources: 3 distinct
-- **Data:** Arizona's 1980 Groundwater Management Act created a regulatory framework, administered by the Arizona Department of Water Resources (ADWR), governing groundwater use—including industrial use—within Active Management Areas (AMAs) such as the Phoenix AMA that covers Chandler.
-  - **Source:** https://chambers.com/content/item/4043 — ARIZONA: An Introduction to Environment: Water Rights Law | Chambers and Partners
-  - **Excerpt:** “Arizona’s 1980 Groundwater Management Act (“Groundwater Code”) created a framework of groundwater rights and regulations that govern groundwater use within Active Management Areas (“AMAs”), which encompass the most populous portions of central and southern Arizona.”
+### 📋 Dimension: Regulations  ·  Sources: 2 distinct
+- **Data:** Arizona was the first U.S. state to enact a law requiring a 100-year water supply plan, via the 1980 Groundwater Management Act.
+  - **Source:** https://www.gpec.org/water/ — Arizona Water | GPEC - Greater Phoenix Economic Council
+  - **Excerpt:** “Arizona was the first state to plan for a 100-year water future by passing the 1980 Groundwater Management Act”
   - **Validation:** ✅ MATCH FOUND (exact)
-  - **Claim support:** ⚠️ PARTIAL — The excerpt confirms the 1980 Groundwater Management Act and AMAs but does not mention ADWR administering it, industrial use specifically, or the Phoenix AMA covering Chandler.
-- **Data:** ADWR's Industrial Program imposes specific conservation requirements on large industrial water users, including a mandate for new large industrial users (over 100 acre-feet/year) to submit water-efficiency plans, avoid waste, reuse/recycle water, avoid single-pass cooling, and use low-flow plumbing fixtures.
-  - **Source:** https://www.azwater.gov/ama/industrial-program — Industrial Program | Arizona Department of Water Resources
-  - **Excerpt:** “New Large Industrial Users shall submit to the ADWR a plan to improve the efficiency of water use by the facility. Avoid waste, make diligent efforts to reuse and recycle water. Avoid single pass cooling or heating unless water is used. Use low flow plumbing fixtures.”
+  - **Claim support:** ✅ YES — Excerpt confirms Arizona was first state to plan for 100-year water future via 1980 Groundwater Management Act, matching the claim.
+- **Data:** Arizona's groundwater management regulations include a requirement to meter or measure water pumped from all large wells.
+  - **Source:** https://www.azwater.gov/sites/default/files/media/Arizona%20Groundwater_Code_1.pdf — Overview of the Arizona Groundwater Code
+  - **Excerpt:** “A requirement to meter/measure water pumped from all large wells.”
   - **Validation:** ❌ FAILED VALIDATION: source blocked by bot protection
     - _bot protection_
-- **Data:** In addition to state groundwater regulation, Chandler has its own local sewer use ordinances that set pollutant limits for industrial dischargers, which have enabled a local semiconductor fab to exceed both quality and water-restoration standards.
-  - **Source:** https://www.manufacturingdive.com/news/semiconductor-chip-ultrapure-water-sustainability/756469/ — Semiconductor industry faces water, sustainability challenges | Manufacturing Dive
-  - **Excerpt:** “For instance, local sewer use ordinances in Chandler, Arizona, have set pollutant limits but not water restoration limits, enabling Intel’s Phoenix-area fab to surpass both quality standards and restore more water than it consumes.”
-  - **Validation:** ❌ FAILED VALIDATION: source blocked by bot protection
-    - _HTTP 403_
 
 ---

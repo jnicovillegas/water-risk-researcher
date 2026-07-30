@@ -190,6 +190,9 @@ short-excerpt safety, HTML text extraction) with no network calls.
   `Fetcher` interface, used selectively when the static fetch looks empty.
 - **Aggressive anti-bot walls** (some news sites) will return `blocked`; a
   headless browser or a paid scraping API would recover a fraction of these.
+- **Scanned / image-only PDFs** have no text layer, so they can't be verified
+  without OCR (text-based PDFs are read and verified). Sites pinned to obsolete
+  TLS versions may fail the fetch with an SSL error.
 - **Excerpt selection** depends on the model quoting verbatim; when it
   paraphrases, verification correctly fails — which is the intended, honest
   behaviour rather than a bug to paper over.

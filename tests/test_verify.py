@@ -8,7 +8,7 @@ Run: pytest
 """
 
 from waterrisk.config import Settings
-from waterrisk.fetch import extract_visible_text
+from waterrisk.fetch import extract_pdf_text, extract_visible_text
 from waterrisk.models import ValidationStatus
 from waterrisk.verify import match_excerpt, normalize
 
@@ -61,6 +61,11 @@ def test_short_excerpt_requires_exact_match():
     # Below min_excerpt_chars, a non-exact excerpt must NOT fuzzy-pass.
     r = match_excerpt("high water", TEXT, S)  # not a verbatim substring
     assert r.status is ValidationStatus.EXCERPT_NOT_FOUND
+
+
+def test_pdf_extractor_fails_gracefully_on_non_pdf():
+    # Garbage bytes must not raise — they just yield no text (→ unverifiable, flagged).
+    assert extract_pdf_text(b"this is not a pdf") == ""
 
 
 def test_scripts_are_stripped_from_page_text():

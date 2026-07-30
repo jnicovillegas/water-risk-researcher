@@ -9,10 +9,12 @@ live in a caption or sidebar — over-cleaning would cause false negatives.
 from __future__ import annotations
 
 import asyncio
+import io
 from dataclasses import dataclass
 
 import httpx
 from bs4 import BeautifulSoup
+from pypdf import PdfReader
 
 from .cache import DiskCache
 from .config import Settings
@@ -45,6 +47,25 @@ def extract_visible_text(html: str) -> str:
     for tag in soup(["script", "style", "noscript", "template", "svg"]):
         tag.decompose()
     return soup.get_text(separator=" ")
+
+
+def extract_pdf_text(data: bytes) -> str:
+    """Extract the text layer from a PDF. Returns '' for scanned/image PDFs with no
+    text layer (which can't be verified without OCR)."""
+    try:
+        reader = PdfReader(io.BytesIO(data))
+        return " ".join(page.extract_text() or "" for page in reader.pages)
+    except Exception:
+        return ""
+
+
+def _is_pdf(url: str, resp: httpx.Response) -> bool:
+    content_type = resp.headers.get("content-type", "").lower()
+    return (
+        "application/pdf" in content_type
+        or url.lower().split("?")[0].endswith(".pdf")
+        or resp.content[:5] == b"%PDF-"
+    )
 
 
 def _looks_blocked(html: str) -> bool:
@@ -95,6 +116,17 @@ class Fetcher:
             if resp.status_code >= 400:
                 return FetchResult(False, ValidationStatus.UNREACHABLE,
                                    http_status=resp.status_code, detail=f"HTTP {resp.status_code}")
+
+            # Regulations often live in PDFs — read those too, not just HTML.
+            if _is_pdf(url, resp):
+                pdf_text = extract_pdf_text(resp.content)
+                if not pdf_text.strip():
+                    return FetchResult(False, ValidationStatus.UNREACHABLE,
+                                       http_status=resp.status_code,
+                                       detail="PDF has no extractable text layer (scanned image?)")
+                return FetchResult(True, ValidationStatus.MATCH,
+                                   text=pdf_text[: self.settings.max_page_chars],
+                                   http_status=resp.status_code)
 
             html = resp.text
             if _looks_blocked(html):

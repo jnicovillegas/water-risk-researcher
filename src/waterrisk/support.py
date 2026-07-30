@@ -33,14 +33,19 @@ For each item, decide whether the excerpt supports the claim.
 
 Rules:
 - Judge ONLY from the excerpt. Do not use any outside knowledge. If the excerpt \
-does not state something, it is NOT supported — even if you believe the claim is true.
-- Break the claim into its individual factual assertions and check each against the excerpt.
-- YES: every assertion in the claim is supported by the excerpt.
-- PARTIAL: the main assertion is supported, but the claim adds specifics (figures, \
-dates, names, scope) the excerpt does not state.
-- NO: the main assertion is not supported, is contradicted, or the excerpt is about \
-something else.
-- When in doubt, choose the more conservative label (YES -> PARTIAL -> NO).
+does not state something, it is NOT supported — even if you believe the claim is \
+true. Being on the same TOPIC is NOT support.
+- First identify the claim's CENTRAL assertion: its main action, event, or fact. \
+Then break the rest of the claim into its individual factual assertions.
+- YES: the central assertion AND every other assertion are supported by the excerpt.
+- PARTIAL: the central assertion IS clearly supported, but the claim adds specifics \
+(figures, dates, names, scope) the excerpt does not state.
+- NO: the central assertion is NOT supported — even if the excerpt is on the same \
+topic or only supports background details — or it is contradicted, or the excerpt \
+is about something else. Example: claim = "residents protested the construction of \
+data centers", excerpt = "frustration is boiling over" -> NO, because the central \
+action (protesting data-center construction) is not in the excerpt.
+- When genuinely in doubt, choose the more conservative label (YES -> PARTIAL -> NO).
 - For PARTIAL or NO, name the exact part of the claim that is not supported.
 
 Return ONLY JSON: {"results": [{"index": <int>, "verdict": "YES"|"PARTIAL"|"NO", \
