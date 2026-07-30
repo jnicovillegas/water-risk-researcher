@@ -22,7 +22,7 @@ correct. It splits the work into two layers:
 ```
                  ┌─────────────────────────────────────────────┐
    locations ──▶ │  1. GENERATION  (can hallucinate)           │
-                 │  Claude + web_search → {data, url, excerpt}  │
+                 │  LLM + web search → {data, url, excerpt}     │
                  └───────────────────────┬─────────────────────┘
                                          │  proposals
                  ┌───────────────────────▼─────────────────────┐
@@ -36,7 +36,7 @@ correct. It splits the work into two layers:
                  └─────────────────────────────────────────────┘
 ```
 
-The verifier uses **no AI**. It downloads the page Claude cited and checks the
+The verifier uses **no AI**. It downloads the page the LLM cited and checks the
 excerpt with exact + fuzzy string matching. The model cannot make text appear on
 a page it doesn't control, so a survived check is real evidence — not a second
 opinion from the same fallible source. Failures are surfaced as
@@ -46,9 +46,9 @@ opinion from the same fallible source. Failures are surfaced as
 
 ## Quick start
 
-Requires Python 3.10+ and an Anthropic API key (from
-[console.anthropic.com](https://console.anthropic.com) — separate from a Claude.ai
-subscription; a run costs a few cents).
+Requires Python 3.9+ and an API key for the LLM (Claude Sonnet 5, via the
+[Anthropic API](https://console.anthropic.com) — a developer API key, separate from
+any chat subscription; a run costs a few cents).
 
 ```bash
 # 1. install
@@ -110,7 +110,7 @@ The Markdown report prints to the console and is written to `--output`. With
 **Architecture.** Three isolated layers (research / verify / report) with typed
 pydantic contracts between them. The search engine sits behind a single class
 (`research.py`) so it can be swapped for Tavily, Serper or Brave without touching
-verification. Claude's `web_search` is a server-side tool: one API call performs
+verification. The LLM's `web_search` is a server-side tool: one API call performs
 the whole grounded search loop, keeping the client simple.
 
 **Robustness (dynamic content / bot blocks).** Fetching uses a realistic
@@ -164,7 +164,7 @@ configuration and a few operational additions:
 - ✅ **Caching** to avoid duplicate searches/fetches (`--no-cache` to disable).
 - ✅ **Consolidated CSV** report (`--csv`).
 - ✅ **AI self-critique** of source relevance (`--critique`) — a separate,
-  web-less Claude pass scoring each verified source 0–5 for authority/fit.
+  web-less LLM pass scoring each verified source 0–5 for authority/fit.
   Deliberately distinct from verification: a quote can be *real* yet come from a
   *weak* source.
 
@@ -202,7 +202,7 @@ short-excerpt safety, HTML text extraction) with no network calls.
 src/waterrisk/
 ├── cli.py         # argument parsing, entrypoint
 ├── pipeline.py    # async orchestration (research → verify → critique)
-├── research.py    # generation: Claude + web_search → structured findings
+├── research.py    # generation: LLM + web search → structured findings
 ├── verify.py      # deterministic excerpt verification (the core)
 ├── fetch.py       # robust async fetching + text extraction + block detection
 ├── critique.py    # optional AI self-critique of source relevance
